@@ -49,7 +49,7 @@ describe('Service: PatientSearch', () => {
          TestBed.get(PatientResourceService) as FakePatientResourceService;
         
         //tell mock to return error on next call
-        fakeRes.returnErrorOnNext
+        fakeRes.returnErrorOnNext = true;
         let results = service.searchPatient('text');
 
         results.subscribe((results) => {
