@@ -24,6 +24,7 @@ export class MainDashboardComponent implements OnInit, OnDestroy {
   public routeConfig = <DynamicRouteModel>{};
   public sidebarOpen = true;
   public isMobile = false;
+  public viewingProgramLinks = false;
   public appSubscription: Subscription;
   user: User;
   version: string;

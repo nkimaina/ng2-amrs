@@ -37,16 +37,16 @@
 								<span class="glyphicon glyphicon-hdd"></span> Switch Servers
 							</a>
 						</li>
-            <li>
-              <a routerLink="/user-default-properties">
-                <span class="glyphicon glyphicon-user"></span> User Default Settings
-              </a>
-            </li>
-            <li>
-              <a routerLink="/useful-links">
-                <span class="glyphicon glyphicon-question-sign"></span> Useful Links
-              </a>
-            </li>
+						<li>
+							<a routerLink="/user-default-properties">
+								<span class="glyphicon glyphicon-user"></span> User Default Settings
+							</a>
+						</li>
+						<li>
+							<a routerLink="/useful-links">
+								<span class="glyphicon glyphicon-question-sign"></span> Useful Links
+							</a>
+						</li>
 						<li class="user-footer">
 							<div class="pull-right">
 								<a (click)="logout()" class="btn btn-default btn-flat">Sign out</a>
@@ -61,8 +61,46 @@
 </header>
 <aside class="main-sidebar">
 	<section class="sidebar">
-		<ul class="sidebar-menu">
-			<li routerLinkActive="active" *ngFor='let route of routeConfig.routes'>
+		<ul class="sidebar-menu" *ngIf="!viewingProgramLinks">
+			<li>
+				<a (click)="viewingProgramLinks = true">
+					<span class="icon-menu" style="color: darkorange;">
+						<span class="icon-menu-letter" style="color: darkorange;">GI</span>
+					<!--<span class="icon-menu-icon" style="color: darkorange;"><i class="fa fa-clipboard"></i></span>-->
+					</span>
+					<span class="icon-menu-label" style="color: darkorange;">General Info</span>
+				</a>
+			</li>
+			<li>
+				<a (click)="viewingProgramLinks = true">
+					<span class="icon-menu" style="color: darkorange;">
+						<span class="icon-menu-letter" style="color: darkorange;">HI</span>
+					<!--<span class="icon-menu-icon" style="color: darkorange;"><i class="fa fa-clipboard"></i></span>-->
+					</span>
+					<span class="icon-menu-label" style="color: darkorange;">HIV Info</span>
+				</a>
+			</li>
+			<li>
+				<a (click)="viewingProgramLinks = true">
+					<span class="icon-menu" style="color: darkorange;">
+						<span class="icon-menu-letter" style="color: darkorange;">OI</span>
+					<!--<span class="icon-menu-icon" style="color: darkorange;"><i class="fa fa-clipboard"></i></span>-->
+					</span>
+					<span class="icon-menu-label" style="color: darkorange;">Oncology Info</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="sidebar-menu" *ngIf="viewingProgramLinks">
+			<li>
+				<a (click)="viewingProgramLinks = false">
+					<span class="icon-menu">
+            <!--<span class="icon-menu-letter" style="color: darkorange;">..</span>-->
+					<span class="icon-menu-icon" style="color: darkorange;"><i class="fa fa-chevron-circle-left"></i></span>
+					</span>
+					<span class="icon-menu-label" style="color: darkorange;">Back</span>
+				</a>
+			</li>
+			<li routerLinkActive="active" *ngFor=' let route of routeConfig.routes '>
 				<a routerLink="/{{route.url}}" (click)="route.onClick($event)">
 					<span class="icon-menu">
             <span class="icon-menu-letter">{{route.menuStartLetter}}</span>
@@ -76,7 +114,7 @@
 </aside>
 <div class="content-wrapper" style="min-height: 100%;">
 	<div class="overlay" [ngClass]="{show: active, hide: !active}" (click)="clickOverlay($event)">
-		<div class='overlay-text'>You will be logged out in {{countDown}} seconds</div>
+		<div class='overlay-text '>You will be logged out in {{countDown}} seconds</div>
 	</div>
 	<section class="content">
 		<router-outlet></router-outlet>
