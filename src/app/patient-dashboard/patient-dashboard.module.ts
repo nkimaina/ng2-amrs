@@ -177,15 +177,10 @@ import { EditDemographicsComponent } from './patient-info/edit-demographics.comp
     HivPatientClinicalSummaryComponent,
     PdfViewerComponent,
     EditDemographicsComponent,
-<<<<<<< HEAD
-    EditPatientIdentifierComponent
-
-=======
     EditPatientIdentifierComponent,
     EditPatientRelationshipComponent,
     AddPatientRelationshipComponent,
     PatientRelationshipSearchComponent
->>>>>>> 65f8d19... NGPOC-157:Edit patient relationships. NGPOC-164: Refactor patient search to make it reusable in relationships
   ],
   providers: [
     PatientEncounterService,
