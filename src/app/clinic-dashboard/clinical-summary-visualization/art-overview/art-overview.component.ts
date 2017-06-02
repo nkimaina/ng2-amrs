@@ -2,7 +2,8 @@ import { Component, ViewEncapsulation, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import * as _ from 'lodash';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClinicalSummaryVisualizationService
+import {
+  ClinicalSummaryVisualizationService
 } from '../../services/clinical-summary-visualization.service';
 
 @Component({
@@ -20,8 +21,8 @@ export class ArtOverviewComponent {
   private data: any;
 
   constructor(private route: ActivatedRoute,
-              private clinicalSummaryVisualizationService: ClinicalSummaryVisualizationService,
-              private router: Router) {
+    private clinicalSummaryVisualizationService: ClinicalSummaryVisualizationService,
+    private router: Router) {
     if (!this.options) {
       this.options = {};
     }
@@ -49,8 +50,8 @@ export class ArtOverviewComponent {
 
   goToPatientList(indicator, filters) {
     this.router.navigate(['./patient-list', 'clinical-art-overview', indicator,
-        filters.startDate.format('DD/MM/YYYY') + '|' + filters.endDate.format('DD/MM/YYYY')]
-      , {relativeTo: this.route});
+      filters.startDate.format('DD/MM/YYYY') + '|' + filters.endDate.format('DD/MM/YYYY')]
+      , { relativeTo: this.route });
   }
 
   renderChart(options) {
@@ -83,6 +84,7 @@ export class ArtOverviewComponent {
             enabled: false
           }
         },
+
         series: {
           cursor: 'pointer',
           point: {
@@ -106,17 +108,28 @@ export class ArtOverviewComponent {
       },
       legend: {
         layout: 'vertical',
-        align: 'right',
-        y: 100,
-        verticalAlign: 'top',
+        align: 'left',
+        y: 0,
+        verticalAlign: 'middle',
         labelFormatter: function () {
           return this.name + ' (' + this.percentage.toFixed(2) + '%)';
         }
       },
       categories: this.categories,
+      credits: {
+        text: '<strong><b>Total Patients: ' + this.totalPatients + '</b></strong>',
+        position: {
+          align: 'right',
+          y: -8, // position of credits,
+          X: 0
+        },
+        style: {
+          fontSize: '1.5em'
+        }
+      },
       series: [
         {
-          innerSize: '30%',
+          innerSize: '0%',
           data: this.series
         }
       ]
