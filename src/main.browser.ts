@@ -9,6 +9,8 @@ import { bootloader } from '@angularclass/hmr';
  * our top level module that holds all of our components
  */
 import { AppModule } from './app';
+import { enableProdMode } from '@angular/core';
+
 
 /*
  * Bootstrap our Angular app with a top level NgModule
@@ -22,4 +24,5 @@ export function main(): Promise<any> {
 
 // needed for hmr
 // in prod this is replace for document ready
+enableProdMode();
 bootloader(main);
