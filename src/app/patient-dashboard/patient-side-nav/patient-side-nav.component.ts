@@ -6,19 +6,19 @@ import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'patient-side-nav',
-    templateUrl: 'patient-side-nav.component.html',
-    animations: [
-        trigger('enterChild', [
-            transition(':enter', [
-                style({ transform: 'translateY(-100%)' }),
-                animate('400ms', style({ transform: 'translateY(0%)' }))
-            ]),
-            transition(':leave', [
-                style({ transform: 'translateY(0%)' }),
-                animate('400ms', style({ transform: 'translateY(100%)' }))
-            ])
-        ])
-    ]
+    templateUrl: 'patient-side-nav.component.html'
+    // animations: [
+    //     trigger('enterChild', [
+    //         transition(':enter', [
+    //             style({ transform: 'translateY(-100%)' }),
+    //             animate('400ms', style({ transform: 'translateY(0%)' }))
+    //         ]),
+    //         transition(':leave', [
+    //             style({ transform: 'translateY(0%)' }),
+    //             animate('400ms', style({ transform: 'translateY(100%)' }))
+    //         ])
+    //     ])
+    // ]
 
 })
 export class PatientSideNavComponent implements OnInit, OnDestroy {

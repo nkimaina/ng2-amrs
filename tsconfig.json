@@ -10,6 +10,8 @@
     "noEmit": true,
     "noEmitHelpers": true,
     "strictNullChecks": false,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
     "lib": [
       "dom",
       "es6"

@@ -160,7 +160,7 @@ import { HttpClient } from '../shared/services/http-client.service';
     AgGridModule.withComponents([]),
     NgamrsSharedModule,
     NgxMyDatePickerModule,
-    MdTabsModule.forRoot(),
+    MdTabsModule,
     MdProgressSpinnerModule,
     MdProgressBarModule,
     MaterialModule

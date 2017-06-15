@@ -1,8 +1,8 @@
 
 import {
-  Component, OnInit, EventEmitter, ElementRef, forwardRef, ViewEncapsulation
+  Component, OnInit, EventEmitter, ElementRef,
+  forwardRef, ViewEncapsulation, Input, Output
 } from '@angular/core';
-import { Output, Input } from '@angular/core/src/metadata/directives';
 import { IndicatorResourceService } from '../../etl-api/indicator-resource.service';
 import * as Moment from 'moment';
 import * as _ from 'lodash';
@@ -57,8 +57,8 @@ export class ReportFilters implements OnInit, ControlValueAccessor {
   public get startDate(): Date {
     return this._startDate;
   }
-  onChange = (_) => {};
-  onTouched = () => {};
+  onChange = (_) => { };
+  onTouched = () => { };
 
   @Input()
   public set startDate(v: Date) {
@@ -76,7 +76,7 @@ export class ReportFilters implements OnInit, ControlValueAccessor {
   }
   @Input()
   public get selectedIndicators(): Array<any> {
-    return this._indicators ;
+    return this._indicators;
   }
   public set selectedIndicators(v: Array<any>) {
     this._indicators = v;
@@ -113,12 +113,12 @@ export class ReportFilters implements OnInit, ControlValueAccessor {
     return this._report;
   }
   constructor(private indicatorResourceService: IndicatorResourceService,
-              private elementRef: ElementRef) {
+    private elementRef: ElementRef) {
   }
 
   ngOnInit() {
     if (this.start && this.end) {
-      this.onAgeChangeFinish.emit({ageFrom: this.start, ageTo: this.end});
+      this.onAgeChangeFinish.emit({ ageFrom: this.start, ageTo: this.end });
     }
     this.genderOptions = [
       {
@@ -143,35 +143,35 @@ export class ReportFilters implements OnInit, ControlValueAccessor {
 
   getIndicators() {
     let indicators = [];
-   this.indicatorResourceService.getReportIndicators({
-     report: this.reportName
-   }).subscribe(
-     (results: any[]) => {
-       for (let i = 0; i < results.length; i++) {
-         let data = results[i];
-         for (let r in data) {
-           if (data.hasOwnProperty(r)) {
-             let id = data.name;
-             let text = data.label;
-             data['id'] = id;
-             data['text'] = text;
-           }
-         }
-         indicators.push(data);
-       }
-       this.indicatorOptions = indicators;
-     }
-   );
+    this.indicatorResourceService.getReportIndicators({
+      report: this.reportName
+    }).subscribe(
+      (results: any[]) => {
+        for (let i = 0; i < results.length; i++) {
+          let data = results[i];
+          for (let r in data) {
+            if (data.hasOwnProperty(r)) {
+              let id = data.name;
+              let text = data.label;
+              data['id'] = id;
+              data['text'] = text;
+            }
+          }
+          indicators.push(data);
+        }
+        this.indicatorOptions = indicators;
+      }
+      );
 
   }
 
   selectAll() {
     let indicatorsSelected = [];
-    if (this.indicatorOptions .length > 0) {
+    if (this.indicatorOptions.length > 0) {
       if (this.selectedIndicatorTagsSelectedAll === false) {
         this.selectedIndicatorTagsSelectedAll = true;
         _.each(this.indicatorOptions, (data) => {
-          indicatorsSelected.push( data);
+          indicatorsSelected.push(data);
         });
         this.selectedIndicators = indicatorsSelected;
       } else {
@@ -182,7 +182,7 @@ export class ReportFilters implements OnInit, ControlValueAccessor {
   }
   onGenderSelected(selectedGender) {
     this.selectedGender = selectedGender;
-    this.onGenderChange.emit( this.selectedGender);
+    this.onGenderChange.emit(this.selectedGender);
   }
   /*getAgeRangeOnFinish(event) {
     this.ageRange.emit(event);
@@ -204,10 +204,10 @@ export class ReportFilters implements OnInit, ControlValueAccessor {
       force_edges: true,
       keyboard: true,
       onFinish: (data) => {
-        this.onAgeChangeFinish.emit({ageFrom: data.from, ageTo: data.to});
+        this.onAgeChangeFinish.emit({ ageFrom: data.from, ageTo: data.to });
       },
       onChange: (data) => {
-        this.value = {ageFrom: data.from, ageTo: data.to};
+        this.value = { ageFrom: data.from, ageTo: data.to };
       }
     });
     this.initialized = true;
