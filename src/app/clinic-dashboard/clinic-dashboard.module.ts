@@ -35,8 +35,6 @@ import { VisualizationComponent } from './clinical-summary-visualization/visuali
 import { ClinicFlowComponent } from '../clinic-flow/clinic-flow.component';
 import { ClinicFlowSummaryComponent } from '../clinic-flow/clinic-flow-summary.component';
 import { ClinicFlowVisitsComponent } from '../clinic-flow/clinic-flow-visits.component';
-import { ClinicFlowHourlyStatsVizComponent } from
-  '../clinic-flow/clinic-flow-hourly-stats-viz.component';
 import { DateTimePickerModule } from 'ng2-openmrs-formentry/src/app/components/date-time-picker';
 import {
   ArtOverviewComponent
@@ -189,7 +187,6 @@ import { HttpClient } from '../shared/services/http-client.service';
     HivCareIndicatorDefComponent,
     ArtOverviewIndicatorDefComponent,
     ClinicFlowComponent,
-    ClinicFlowHourlyStatsVizComponent,
     ClinicFlowSummaryComponent,
     ClinicFlowVisitsComponent,
     PatientStatusChangeVisualizationContainerComponent,
@@ -248,7 +245,6 @@ import { HttpClient } from '../shared/services/http-client.service';
     HivCareIndicatorDefComponent,
     ArtOverviewIndicatorDefComponent,
     ClinicFlowComponent,
-    ClinicFlowHourlyStatsVizComponent,
     ClinicFlowSummaryComponent,
     ClinicFlowVisitsComponent,
     PatientStatusChangeListComponent,
