@@ -72,8 +72,8 @@ import { TodaysVitalsService } from './todays-vitals/todays-vitals.service';
 import { ToastrModule } from 'ngx-toastr';
 import { PatientRemindersComponent } from './patient-reminders/patient-reminders.component';
 import { OrderListComponent } from './formentry/order-list.component';
-// import { PatientMonthlyStatusComponent } from
-//   './patient-status-change/patient-monthly-status.component';
+import { PatientMonthlyStatusComponent } from
+  './patient-status-change/patient-monthly-status.component';
 import { PatientRelationshipService } from './patient-relationships/patient-relationship.service';
 import {
   PatientRelationshipSearchComponent
@@ -194,8 +194,8 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     EditPatientRelationshipComponent,
     AddPatientRelationshipComponent,
     PatientRelationshipSearchComponent,
-    VisitPeriodComponent
-    // PatientMonthlyStatusComponent
+    VisitPeriodComponent,
+    PatientMonthlyStatusComponent
   ],
   providers: [
     PatientEncounterService,
