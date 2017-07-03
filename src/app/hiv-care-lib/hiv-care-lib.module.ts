@@ -41,7 +41,6 @@ import { HivSummaryTabularComponent } from './hiv-summary-indicators/hiv-summary
     Moh731PatientListComponent,
     Moh731ReportFilters,
     DateTimePickerModule,
-    EtlApi,
     CommonModule,
     TabViewModule,
     NgamrsSharedModule,

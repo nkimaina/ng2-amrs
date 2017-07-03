@@ -45,7 +45,7 @@ import { PatientCareStatusResourceService } from
     PatientStatusVisualizationResourceService,
     HivSummaryIndicatorsResourceService,
     Moh731PatientListResourceService,
-    // PatientCareStatusResourceService
+    PatientCareStatusResourceService
   ],
   exports: []
 })
