@@ -14,7 +14,9 @@ export class PatientCareStatusResourceService {
         let api: string = this.appSettingsService.getEtlServer() +
             '/patient/' + options.patient_uuid + '/monthly-care-status';
         let params: URLSearchParams = this.getUrlRequestParams(options);
-        return this.http.get(api, { search: params }).map((data) => data.json());
+        let v: any = {};
+        v.search = params;
+        return this.http.get(api, v).map((data) => data.json());
     }
 
 
@@ -25,7 +27,9 @@ export class PatientCareStatusResourceService {
             '/patient/' + options.patient_uuid + '/daily-care-status';
         let urlParams: URLSearchParams = new URLSearchParams();
         urlParams.set('referenceDate', options.referenceDate);
-        return this.http.get(api, { search: urlParams }).map((data) => data.json());
+        let v: any = {};
+        v.search = urlParams;
+        return this.http.get(api, v).map((data) => data.json());
     }
 
     private getUrlRequestParams(options: {
