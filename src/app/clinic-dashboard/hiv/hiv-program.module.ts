@@ -7,7 +7,6 @@ import {
 import { Moh731ReportComponent } from './moh-731/moh-731-report.component';
 import { clinicDashboardHivRouting } from './hiv-program.routes';
 import { HivCareLibModule } from '../../hiv-care-lib/hiv-care-lib.module';
-import { EtlApi } from '../../etl-api/etl-api.module';
 import {
     HivSummaryIndicatorComponent
 } from './hiv-summary-indicators/hiv-summary-indicator.component';
@@ -21,12 +20,11 @@ import {
         clinicDashboardHivRouting,
         HivCareLibModule,
         DateTimePickerModule,
-        EtlApi,
         DataListsModule,
         CommonModule
     ],
     exports: [HivSummaryIndicatorComponent,
-        HivSummaryIndicatorsPatientListComponent],
+        HivSummaryIndicatorsPatientListComponent, HivCareLibModule],
     declarations: [
         Moh731ReportComponent,
         HivSummaryIndicatorComponent,

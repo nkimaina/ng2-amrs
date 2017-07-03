@@ -70,7 +70,6 @@ import {
 import {
   PatientStatusIndicatorDefComponent
 } from './clinical-summary-visualization/patient-status-overview/indicator-definition.component';
-import { EtlApi } from '../etl-api/etl-api.module';
 import {
   HivCareIndicatorDefComponent
 } from
@@ -125,7 +124,6 @@ import {
     GrowlModule,
     AccordionModule,
     OpenmrsApi,
-    EtlApi,
     SelectModule,
     Angulartics2Module.forChild(),
     NgamrsSharedModule,
