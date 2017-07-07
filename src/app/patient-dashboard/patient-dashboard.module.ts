@@ -118,7 +118,9 @@ import { LocatorMapComponent } from './locator-map/locator-map.component';
 import { SecurePipe } from './locator-map/secure.pipe';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SelectModule } from 'angular2-select';
+import { CohortMemberModule } from '../patient-list-cohort/cohort-member/cohort-member.module';
 /* import { EditHealtCenterComponent } from './patient-info/edit-healthcenter.component'; */
+import { AddToCohortComponent } from './patient-cohort/add-to-cohort.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -155,7 +157,8 @@ import { SelectModule } from 'angular2-select';
 
     ]),
     LabOrderSearchModule,
-    FileUploaderModule
+    FileUploaderModule,
+    CohortMemberModule
   ],
   declarations: [
     LandingPageComponent,
@@ -194,7 +197,7 @@ import { SelectModule } from 'angular2-select';
     PatientRelationshipsComponent,
     EditContactsComponent,
     EditAddressComponent,
-/*    EditHealtCenterComponent,*/
+    /*    EditHealtCenterComponent,*/
     HivPatientClinicalSummaryComponent,
     EditDemographicsComponent,
     EditPatientIdentifierComponent,
@@ -205,7 +208,8 @@ import { SelectModule } from 'angular2-select';
     VisitPeriodComponent,
     PatientMonthlyStatusComponent,
     LocatorMapComponent,
-    SecurePipe
+    SecurePipe,
+    AddToCohortComponent
   ],
   providers: [
     PatientEncounterService,
