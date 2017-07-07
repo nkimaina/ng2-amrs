@@ -15,6 +15,7 @@ export class EditCohortListComponent implements OnInit, OnDestroy {
   public selectedCohortName: string;
   public selectedCohortDescription: string;
   public selectedCohortUuid: string;
+  display: boolean = false;
   private errors: any = [];
   private successAlert: any = '';
 
@@ -37,7 +38,7 @@ export class EditCohortListComponent implements OnInit, OnDestroy {
     this.subscription = this.cohortListService.getData().subscribe(
       data => {
         if (data) {
-          this.selectedCohortDescription = data.desc;
+          this.selectedCohortDescription = data.description;
           this.selectedCohortUuid = data.uuid;
           this.selectedCohortName = data.name;
         }
@@ -54,25 +55,37 @@ export class EditCohortListComponent implements OnInit, OnDestroy {
       let cohortListPayload = {
         name: this.selectedCohortName,
         description: this.selectedCohortDescription,
-       // memberIds: []
+        // memberIds: []
       };
-      this.cohortResourceService.editCohort(this.selectedCohortDescription,
+      this.cohortResourceService.editCohort(this.selectedCohortUuid,
         cohortListPayload).subscribe(
         (success) => {
           if ( success ) {
             this.successAlert = 'Successfully edited cohort';
+            this.cohortResourceService.getCohort(this.selectedCohortUuid).subscribe(
+              (edited) => {
+                this.cohortListService.setData(edited);
+              }
+            );
+            this.display = false;
 
-            this.router.navigate(['/patient-list-cohort']);
           }
 
         },
         (error) => {
           console.log('error', error);
           this.errors.push({
-            message: 'error adding cohort'
+            message: 'error editing cohort'
           });
         }
       );
     }
   }
+  showDialog() {
+    this.display = true;
+  }
+  public dismissDialog() {
+    this.display = false;
+  }
+
 }

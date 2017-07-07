@@ -9,7 +9,7 @@ import { CohortMemberResourceService } from '../openmrs-api/cohort-member-resour
 @Component({
   selector: 'cohort-list-members',
   templateUrl: 'cohort-list-members.component.html',
-  styleUrls: [],
+  styleUrls: ['./cohort-members.css'],
 })
 export class ViewCohortListMembersComponent implements OnInit, OnDestroy {
 
@@ -20,11 +20,22 @@ export class ViewCohortListMembersComponent implements OnInit, OnDestroy {
   public selectedCohortName: string;
   public selectedCohortDescription: string;
   public selectedCohortUuid: string;
+  userAssignedRole: string;
+  filterTerm: string = '';
+  display: boolean = false;
+  selectedMember: any;
+  private displayConfirmDialog: boolean = false;
+  private showSuccessAlert: boolean = false;
+  private showErrorAlert: boolean = false;
+  private successAlert: string;
+  private errorAlert: string;
+  private errorTitle: string;
 
   constructor(
               private cohortListService: CohortListService,
               private router: Router,
-              private cohortMemberResourceService: CohortMemberResourceService) { }
+              private cohortMemberResourceService: CohortMemberResourceService,
+              private cohortResourceService: CohortResourceService) { }
   ngOnInit() {
     this.viewCohortListMembers();
 
@@ -44,6 +55,8 @@ export class ViewCohortListMembersComponent implements OnInit, OnDestroy {
         if (data) {
           this.selectedCohortUuid = data.uuid;
           this.selectedCohortName = data.name;
+          this.selectedCohortDescription = data.description;
+          this.userAssignedRole = data.role;
         }
 
       });
@@ -60,6 +73,63 @@ export class ViewCohortListMembersComponent implements OnInit, OnDestroy {
 
 
   }
+
+  loadPatientData(patientUuid) {
+    if (patientUuid === undefined || patientUuid === null) {
+      return;
+    }
+    this.router.navigate(['/patient-dashboard/' + patientUuid + '/general']);
+  }
+  valueChange(newValue) {
+    this.filterTerm = newValue;
+  }
+
+  public voidCohortList() {
+    if (this.selectedCohortUuid ) {
+      this.cohortResourceService.retireCohort(this.selectedCohortUuid ).subscribe(
+        (success) => {
+          this.displayConfirmDialog = false;
+          this.displaySuccessAlert('Cohort list deleted successfully');
+          this.router.navigate(['/patient-list-cohort/cohort']);
+        },
+        (error) => {
+          console.error('The request failed because of the following ', error);
+          this.displayErrorAlert('Error!',
+            'System encountered an error while deleting the cohort. Please retry.');
+        });
+    }
+  }
+  public displaySuccessAlert(message) {
+    this.showErrorAlert = false;
+    this.showSuccessAlert = true;
+    this.successAlert = message;
+    setTimeout(() => {
+      this.showSuccessAlert = false;
+    }, 3000);
+  }
+
+
+  public displayErrorAlert(errorTitle, errorMessage) {
+    this.showErrorAlert = true;
+    this.errorAlert = errorMessage;
+    this.errorTitle = errorTitle;
+    setTimeout(() => {
+      this.showErrorAlert = false;
+    }, 3000);
+  }
+  public openConfirmDialog(member) {
+    this.selectedMember = member.patient.person.display;
+    console.log('members', member);
+    this.displayConfirmDialog = true;
+
+  }
+  public closeConfirmationDialog() {
+    this.displayConfirmDialog = false;
+  }
+  navigateBack() {
+    this.router.navigate(['/patient-list-cohort/cohort']);
+  }
+
 
 
 
