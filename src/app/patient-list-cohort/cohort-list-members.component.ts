@@ -14,9 +14,11 @@ import { CohortMemberResourceService } from '../openmrs-api/cohort-member-resour
 export class ViewCohortListMembersComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
+  showingAddToCohort: boolean = false;
   cohortMembers: any;
   identifiers: any;
   fetchingResults: boolean = false;
+  public cohort: any;
   public selectedCohortName: string;
   public selectedCohortDescription: string;
   public selectedCohortUuid: string;
@@ -32,22 +34,29 @@ export class ViewCohortListMembersComponent implements OnInit, OnDestroy {
   private errorTitle: string;
 
   constructor(
-              private cohortListService: CohortListService,
-              private router: Router,
-              private cohortMemberResourceService: CohortMemberResourceService,
-              private cohortResourceService: CohortResourceService) { }
+    private cohortListService: CohortListService,
+    private router: Router,
+    private cohortMemberResourceService: CohortMemberResourceService,
+    private cohortResourceService: CohortResourceService) { }
   ngOnInit() {
     this.viewCohortListMembers();
-
-
   }
 
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
-
     }
   }
+
+  addToCohort() {
+    this.showingAddToCohort = true;
+  }
+
+  onAddingToCohortClosed() {
+    this.showingAddToCohort = false;
+    this.viewCohortListMembers();
+  }
+
   viewCohortListMembers() {
     this.fetchingResults = true;
     this.subscription = this.cohortListService.getData().subscribe(
@@ -57,6 +66,7 @@ export class ViewCohortListMembersComponent implements OnInit, OnDestroy {
           this.selectedCohortName = data.name;
           this.selectedCohortDescription = data.description;
           this.userAssignedRole = data.role;
+          this.cohort = data;
         }
 
       });
@@ -85,8 +95,8 @@ export class ViewCohortListMembersComponent implements OnInit, OnDestroy {
   }
 
   public voidCohortList() {
-    if (this.selectedCohortUuid ) {
-      this.cohortResourceService.retireCohort(this.selectedCohortUuid ).subscribe(
+    if (this.selectedCohortUuid) {
+      this.cohortResourceService.retireCohort(this.selectedCohortUuid).subscribe(
         (success) => {
           this.displayConfirmDialog = false;
           this.displaySuccessAlert('Cohort list deleted successfully');
