@@ -103,12 +103,12 @@ export class LandingPageComponent implements OnInit, OnDestroy {
             buttons: {
               landing: {
                 display: 'Go to Program',
-                url: route ? '/patient-dashboard/' + patientUuid + '/' +
+                url: route ? '/patient-dashboard/patient/' + patientUuid + '/' +
                 route.baseRoute + '/landing-page' : null
               },
               visit: {
                 display: 'Start Visit',
-                url: route ? '/patient-dashboard/' + patientUuid + '/' +
+                url: route ? '/patient-dashboard/patient/' + patientUuid + '/' +
                 route.baseRoute + '/visit' : null
               }
             },
