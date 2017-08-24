@@ -11,17 +11,9 @@ export class PatientProgramResourceService {
   constructor(private http: Http, private appSettingsService: AppSettingsService) {
   }
 
-  getPatientPrograms(patientUuid: string): Observable<any> {
+  getAllProgramVisitConfigs(ttl?: number): Observable<any> {
     let url = this.appSettingsService.getEtlRestbaseurl().trim()
-      + 'patient-program/' + patientUuid;
-    return this.http.get(url).map((response: Response) => {
-      return response.json();
-    });
-  }
-
-  getPatientProgramByProgUuid(patientUuid: string, programUuid: string): Observable<any> {
-    let url = this.appSettingsService.getEtlRestbaseurl().trim()
-      + 'patient-program/' + patientUuid + '/program/' + programUuid;
+      + 'program-visit-configs';
     return this.http.get(url).map((response: Response) => {
       return response.json();
     });

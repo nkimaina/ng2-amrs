@@ -32,8 +32,6 @@ import { Router } from '@angular/router';
 import { SessionStorageService } from '../utils/session-storage.service';
 import { HttpClient } from '../shared/services/http-client.service';
 import { AdminDashboardClinicFlowComponent } from './hiv/clinic-flow/admin-dashboard-clinic-flow';
-import { LocationFilterComponent
-} from '../shared/locations/location-filter/location-filter.component';
 import { HivCareLibModule } from '../hiv-care-lib/hiv-care-lib.module';
 
 /**
@@ -54,7 +52,6 @@ import { HivCareLibModule } from '../hiv-care-lib/hiv-care-lib.module';
     AccordionModule,
     OpenmrsApi,
     EtlApi,
-    SelectModule,
     Angulartics2Module.forChild(),
     NgamrsSharedModule,
     ChartModule.forRoot(require('highcharts'),
@@ -82,7 +79,6 @@ import { HivCareLibModule } from '../hiv-care-lib/hiv-care-lib.module';
   ],
   declarations: [
     DataAnalyticsDashboardComponent,
-    LocationFilterComponent,
     AdminDashboardClinicFlowComponent
   ],
   providers: [

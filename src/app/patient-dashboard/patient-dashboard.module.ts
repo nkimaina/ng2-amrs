@@ -126,7 +126,10 @@ import { VisitEncountersPipe } from './visit-encounters/visit-encounters.pipe';
 import { OrderByAlphabetPipe } from './visit-encounters/visit-encounter.component.order.pipe';
 import { OrderByEncounterTimeAscPipe } from './visit-encounters/orderByEncounterTime.pipe';
 import { EncounterTypeFilter } from
-'./patient-encounters/encounter-list.component.filterByEncounterType.pipe';
+  './patient-encounters/encounter-list.component.filterByEncounterType.pipe';
+import { VisitStarterComponent } from './visit/visit-starter/visit-starter.component';
+import { VisitDetailsComponent } from './visit/visit-details/visit-details.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -217,6 +220,8 @@ import { EncounterTypeFilter } from
     SecurePipe,
     VisitEncountersListComponent,
     VisitEncountersComponent,
+    VisitStarterComponent,
+    VisitDetailsComponent,
     VisitEncountersPipe,
     OrderByAlphabetPipe,
     OrderByEncounterTimeAscPipe,
