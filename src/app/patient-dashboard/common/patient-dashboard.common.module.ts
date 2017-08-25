@@ -119,6 +119,8 @@ import { LabOrderSearchModule } from '../../lab-order-search/lab-order-search.mo
 import { PatientSearchModule } from '../../patient-search/patient-search.module';
 import { PatientProgramService } from '../programs/patient-programs.service';
 import { BusyComponent } from '../../shared/busy-loader/busy.component';
+import { VisitDetailsComponent } from './visit/visit-details/visit-details.component';
+import { VisitStarterComponent } from './visit/visit-starter/visit-starter.component';
 
 @NgModule({
   imports: [
@@ -201,6 +203,8 @@ import { BusyComponent } from '../../shared/busy-loader/busy.component';
     SecurePipe,
     VisitEncountersListComponent,
     VisitEncountersComponent,
+    VisitDetailsComponent,
+    VisitStarterComponent,
     VisitEncountersPipe,
     OrderByAlphabetPipe,
     OrderByEncounterTimeAscPipe,
@@ -245,6 +249,8 @@ import { BusyComponent } from '../../shared/busy-loader/busy.component';
     SecurePipe,
     VisitEncountersListComponent,
     VisitEncountersComponent,
+    VisitDetailsComponent,
+    VisitStarterComponent,
     VisitEncountersPipe,
     OrderByAlphabetPipe,
     OrderByEncounterTimeAscPipe,
