@@ -90,7 +90,7 @@ export class FormSubmissionService {
             }
             break;
           default:
-            console.log('Invalid Payload Type, Please register');
+            console.error('Invalid Payload Type, Please register');
         }
 
       });

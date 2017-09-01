@@ -1,6 +1,7 @@
 <div [ngBusy]="{busy:[isBusy],message:'Loading...'}">
 
-  <h4 class="component-title"><span class="icon-i-outpatient"></span>Current Visit</h4>
+  <h4 class="component-title"><span class="icon-i-outpatient"></span>Current Visit </h4>
+  <strong *ngIf="currentEnrollment" style="text-transform:capitalize;">Patient enrolled in {{currentEnrollment.display}}  <span *ngIf="currentEnrollment.openmrsModel.location">{{ (' at ' + currentEnrollment.openmrsModel.location.display) }}</span></strong>
   <div *ngFor="let error of errors" class="alert alert-danger alert-dismissible">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> {{error.message}}
   </div>

@@ -110,6 +110,7 @@ export class GeneralLandingPageComponent implements OnInit, OnDestroy {
         if (patient) {
           this.patient = patient;
           this.availablePrograms = patient.enrolledPrograms;
+          // console.log('patient enrolled programs', this.availablePrograms);
         }
       }, (err) => {
         this.hasError = true;
@@ -225,7 +226,7 @@ export class GeneralLandingPageComponent implements OnInit, OnDestroy {
         }
       },
       (error: any) => {
-        console.log(error);
+        console.error(error);
       }
     );
   }

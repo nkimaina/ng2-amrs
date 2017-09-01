@@ -115,7 +115,7 @@ export class EditDemographicsComponent implements OnInit, OnDestroy {
         this.causesOfDeath = data.answers;
       }
     }, (error) => {
-      console.log('Failed to load concepts ', error);
+      console.error('Failed to load concepts ', error);
     });
   }
 
@@ -190,7 +190,7 @@ export class EditDemographicsComponent implements OnInit, OnDestroy {
           // this.successAlert = 'Successfully updated Patient Demographics';
         },
         (error) => {
-          console.log('error', error);
+          console.error('error', error);
           this.errors.push({
             message: 'error updating demographics'
           });
