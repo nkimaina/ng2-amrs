@@ -89,7 +89,7 @@ export class HivPatientClinicalSummaryComponent implements OnInit, OnDestroy {
 
   public downloadPdf(): void {
     this.pdfMakeProxy
-      .download((this.patient.display || 'patient_summary') + '.pdf');
+      .download(( 'No Name' || 'patient_summary') + '.pdf');
   }
 
   public nextPage(): void {

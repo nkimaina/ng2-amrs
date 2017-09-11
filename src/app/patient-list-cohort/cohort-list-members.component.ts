@@ -135,7 +135,7 @@ export class ViewCohortListMembersComponent implements OnInit, OnDestroy {
     }, 3000);
   }
   public openConfirmDialog(member) {
-    this.selectedMember = member.patient.person.display;
+    this.selectedMember = 'No Names';
     this.selectedMemberUuid = member.patient.uuid;
     this.displayConfirmDialog = true;
 

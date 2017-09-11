@@ -382,7 +382,7 @@ export class HivPatientClinicalSummaryService {
     let details: Array<any> = [['Patient has no demographics data']];
     try {
       details = [{
-        text: patient.person.display || 'N/A',
+        text: 'No Names',
         style: 'subheader',
         fillColor: '#dedede'
       }, {
@@ -391,7 +391,7 @@ export class HivPatientClinicalSummaryService {
           width: 45,
           style: 'subheader'
         }, {
-          text: (patient.person.contacts as any).patientPhoneNumber || 'N/A',
+          text: '0712000000' || 'N/A',
           width: '*',
           style: 'headerDetails',
           alignment: 'left'
@@ -403,7 +403,7 @@ export class HivPatientClinicalSummaryService {
           width: 30,
           style: 'subheader'
         }, {
-          text: (patient.person.age || 'N/A').toString(),
+          text: ('0' || 'N/A').toString(),
           width: 20,
           style: 'headerDetails',
           alignment: 'left'
@@ -412,7 +412,7 @@ export class HivPatientClinicalSummaryService {
           width: 30,
           style: 'subheader'
         }, {
-          text: this._formatDate(patient.person.birthdate) || 'N/A',
+          text:'01-01-1990' || 'N/A',
           width: '*',
           style: 'headerDetails',
           alignment: 'left'

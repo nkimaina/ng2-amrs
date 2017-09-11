@@ -22,12 +22,12 @@
                         <button type="button" [(disabled)]="!allowPatientEdit" class="btn btn-default btn-sm" (click)="showPatientSearchComponent()">
                             <span class="fa fa-exchange"></span>
                         </button>
-                        <span style="font-size: 18px;"> Patient: {{patient? patient.person.display :''}}</span>
+                        <span style="font-size: 18px;"> No Names</span>
                     </div>
                     <div *ngIf="showPatientSearch" class="selectable-field-wrapper">
                         <span style="margin-bottom: 20px;">Search and select patient to add to patient list:</span>
                         <br/>
-                        <app-patient-search (patientSelected)='patientSelected($event)' [hideResults]="hideResult"></app-patient-search>  
+                        <app-patient-search (patientSelected)='patientSelected($event)' [hideResults]="hideResult"></app-patient-search>
                     </div>
                 </div>
         </div>

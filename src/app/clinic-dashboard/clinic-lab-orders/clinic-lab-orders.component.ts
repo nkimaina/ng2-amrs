@@ -176,7 +176,7 @@ export class ClinicLabOrdersComponent implements OnInit, OnDestroy {
       },
       {
         headerName: 'Identifiers',
-        field: 'identifiers',
+        field: 'identifierss',
         width: 150,
         cellStyle: {
           'white-space': 'normal'
@@ -185,7 +185,7 @@ export class ClinicLabOrdersComponent implements OnInit, OnDestroy {
       },
       {
         headerName: 'Person Name',
-        field: 'person_name',
+        field: 'person_names',
         width: 120,
         cellStyle: {
           'white-space': 'normal'

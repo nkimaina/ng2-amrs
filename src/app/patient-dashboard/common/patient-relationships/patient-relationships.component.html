@@ -21,7 +21,7 @@
 		<tbody>
 			<tr *ngFor=' let relationship of relationships'>
 				<td>{{relationship.relationshipType}}</td>
-				<td>{{relationship.display}}</td>
+				<td>No Names</td>
 				<td><a (click)="editRelationship.showDialog(relationship, relationships)"><span class="glyphicon glyphicon-pencil link"></span></a></td>
 				<td><a (click)="openConfirmDialog(relationship.uuid)"><span class="glyphicon glyphicon-remove link"></span></a></td>
 				<td><a

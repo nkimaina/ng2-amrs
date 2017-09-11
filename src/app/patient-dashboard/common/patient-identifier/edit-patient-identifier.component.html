@@ -22,7 +22,7 @@
       <div class="input-group">
         <label >Patient Identifier</label>
         <input type="text" id="patientIdentifier" class="form-control"
-               [(ngModel)]="patientIdentifier" name=""
+               name="patientIdentifier"
                (ngModelChange)="setPatientIdentifier(patientIdentifier)" >
       </div>
       <div *ngIf="identifierValidity">
