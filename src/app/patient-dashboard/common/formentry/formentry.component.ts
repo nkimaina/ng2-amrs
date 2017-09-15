@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Http, Response, ResponseContentType, Headers } from '@angular/http';
 
+import * as moment from 'moment';
+
 import { AppFeatureAnalytics } from '../../../shared/app-analytics/app-feature-analytics.service';
 import { DraftedFormsService } from './drafted-forms.service';
 import { FormFactory, EncounterAdapter, Form, PersonAttribuAdapter } from 'ng2-openmrs-formentry';
@@ -14,13 +16,14 @@ import { Patient } from '../../../models/patient.model';
 import { FileUploadResourceService } from '../../../etl-api/file-upload-resource.service';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { ConfirmationService } from 'primeng/primeng';
-import * as moment from 'moment';
 
 import { UserService } from '../../../openmrs-api/user.service';
 import { UserDefaultPropertiesService } from
   '../../../user-default-properties/user-default-properties.service';
-import { MonthlyScheduleResourceService
+import {
+  MonthlyScheduleResourceService
 } from '../../../etl-api/monthly-scheduled-resource.service';
+import { FormentryReferralsHandlerService } from './formentry-referrals-handler.service';
 
 @Component({
   selector: 'app-formentry',
@@ -44,6 +47,7 @@ export class FormentryComponent implements OnInit, OnDestroy {
     encounterUuid: null,
     orders: []
   };
+  public diffCareReferralStatus: any = undefined;
   private subscription: Subscription;
   private encounterUuid: string = null;
   private encounter: any = null;
@@ -51,24 +55,27 @@ export class FormentryComponent implements OnInit, OnDestroy {
   private failedPayloadTypes: Array<string> = null;
   private compiledSchemaWithEncounter: any = null;
 
-  constructor(private appFeatureAnalytics: AppFeatureAnalytics,
-              private route: ActivatedRoute,
-              private formFactory: FormFactory,
-              private encounterResource: EncounterResourceService,
-              private encounterAdapter: EncounterAdapter,
-              private userDefaultPropertiesService: UserDefaultPropertiesService,
-              private userService: UserService,
-              private formSubmissionService: FormSubmissionService,
-              private router: Router,
-              private patientService: PatientService,
-              private formDataSourceService: FormDataSourceService,
-              private personAttribuAdapter: PersonAttribuAdapter,
-              private dataSources: DataSources,
-              private monthlyScheduleResourceService: MonthlyScheduleResourceService,
-              private draftedFormsService: DraftedFormsService,
-              private fileUploadResourceService: FileUploadResourceService,
-              private http: Http,
-              private confirmationService: ConfirmationService) {
+  constructor(
+    private appFeatureAnalytics: AppFeatureAnalytics,
+    private route: ActivatedRoute,
+    private formFactory: FormFactory,
+    private encounterResource: EncounterResourceService,
+    private encounterAdapter: EncounterAdapter,
+    private userDefaultPropertiesService: UserDefaultPropertiesService,
+    private userService: UserService,
+    private formSubmissionService: FormSubmissionService,
+    private router: Router,
+    private patientService: PatientService,
+    private formDataSourceService: FormDataSourceService,
+    private personAttribuAdapter: PersonAttribuAdapter,
+    private dataSources: DataSources,
+    private monthlyScheduleResourceService:
+      MonthlyScheduleResourceService,
+    private draftedFormsService: DraftedFormsService,
+    private fileUploadResourceService: FileUploadResourceService,
+    private http: Http,
+    private referralsHandler: FormentryReferralsHandlerService,
+    private confirmationService: ConfirmationService) {
   }
 
   public ngOnInit() {
@@ -431,6 +438,7 @@ export class FormentryComponent implements OnInit, OnDestroy {
 
   private submitForm(payloadTypes: Array<string> = ['encounter', 'personAttribute']): void {
     this.form.showErrors = !this.form.valid;
+    // this.handleFormReferrals();
     if (this.form.valid) {
       this.isBusyIndicator(true, 'Please wait, saving form...');
       // clear formSubmissionErrors
@@ -467,7 +475,48 @@ export class FormentryComponent implements OnInit, OnDestroy {
     this.resetLastTab();
     this.formSubmissionErrors = null;
     this.failedPayloadTypes = null;
-    this.showSuccessDialog = true;
+    // this.showSuccessDialog = true;
+
+    // handle referrals here
+    this.handleFormReferrals();
+  }
+
+  private handleFormReferrals() {
+    let referralsData = this.referralsHandler.extractRequiredValues(this.form);
+    this.diffCareReferralStatus = undefined;
+
+    if (referralsData.hasDifferentiatedCareReferal) {
+      this.confirmationService.confirm({
+        header: 'Process Referrals',
+        message: 'You have referred the patient to ' +
+        'differentiated care program. Do you want to enroll patient to the program?',
+        accept: () => {
+          this.isBusyIndicator(true);
+          this.referralsHandler.handleFormReferals(this.patient,
+            this.form)
+            .subscribe(
+            (results) => {
+              this.isBusyIndicator(false);
+              this.showSuccessDialog = true;
+              this.diffCareReferralStatus = results.differentiatedCare;
+            },
+            (error) => {
+              console.error('Error processing referrals', error);
+              this.isBusyIndicator(false);
+              this.showSuccessDialog = true;
+              this.diffCareReferralStatus = error.differentiatedCare;
+            }
+            );
+        },
+        reject: () => {
+          this.showSuccessDialog = true;
+        }
+      });
+
+    } else {
+      // display success dialog
+      this.showSuccessDialog = true;
+    }
   }
 
   private resetLastTab() {

@@ -59,6 +59,8 @@ import { PatientProgramService } from '../../programs/patient-programs.service';
 import { RoutesProviderService } from '../../../shared/dynamic-route/route-config-provider.service';
 import { ProgramService } from '../../programs/program.service';
 import { ProgramResourceService } from '../../../openmrs-api/program-resource.service';
+import { FormentryReferralsHandlerService } from './formentry-referrals-handler.service';
+import { PatientReferralsModule } from '../patient-referrals/patient-referrals.module';
 
 describe('Component: FormentryComponent', () => {
   let router = {
@@ -105,7 +107,8 @@ describe('Component: FormentryComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        CacheModule
+        CacheModule,
+        PatientReferralsModule
       ],
       providers: [
         MockBackend,
@@ -144,6 +147,7 @@ describe('Component: FormentryComponent', () => {
         DataCacheService,
         FileUploadResourceService,
         CacheService,
+        FormentryReferralsHandlerService,
         {
           provide: EncounterResourceService, useFactory: () => {
           return new EncounterResourceServiceMock();

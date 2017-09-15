@@ -121,6 +121,8 @@ import { PatientProgramService } from '../programs/patient-programs.service';
 import { BusyComponent } from '../../shared/busy-loader/busy.component';
 import { VisitDetailsComponent } from './visit/visit-details/visit-details.component';
 import { VisitStarterComponent } from './visit/visit-starter/visit-starter.component';
+import { FormentryReferralsHandlerService } from './formentry/formentry-referrals-handler.service';
+import { PatientReferralsModule } from './patient-referrals/patient-referrals.module';
 
 @NgModule({
   imports: [
@@ -161,7 +163,8 @@ import { VisitStarterComponent } from './visit/visit-starter/visit-starter.compo
     CohortMemberModule,
     LabOrderSearchModule,
     HivCareLibModule,
-    PatientSearchModule
+    PatientSearchModule,
+    PatientReferralsModule
   ],
   exports: [
     PatientInfoComponent,
@@ -281,6 +284,7 @@ import { VisitStarterComponent } from './visit/visit-starter/visit-starter.compo
     DatePipe,
     PatientIdentifierService,
     PatientRelationshipTypeService,
+    FormentryReferralsHandlerService,
     PatientCareStatusResourceService],
 })
 export class PatientDashboardCommonModule { }
