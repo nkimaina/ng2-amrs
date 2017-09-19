@@ -91,55 +91,56 @@ export class DifferentiatedCareReferralService {
       setTimeout(() => {
         finalSubject.next(status);
       }, 20);
+    } else {
+
+      let activePrograms = this.filterOutHivActivePrograms(patient.enrolledPrograms);
+
+      // Step 1: Unenroll from other programs
+      this.endProgramEnrollments(activePrograms, encounterDateTime)
+        .subscribe(
+        (response) => {
+          status.otherHivProgUnenrollment.unenrolledFrom = activePrograms;
+          status.otherHivProgUnenrollment.done = true;
+          this.onReferralStepCompletion(status, finalSubject);
+        },
+        (error) => {
+          status.otherHivProgUnenrollment.done = true;
+          status.otherHivProgUnenrollment.error = error;
+          this.onReferralStepCompletion(status, finalSubject);
+        }
+        );
+
+      // Step 2: Enroll in Diff Care program
+      this.enrollPatientToDifferentiatedCare(patientUuid, encounterDateTime, locationUuid)
+        .subscribe(
+        (response) => {
+          status.diffCareProgramEnrollment.enrolled = response;
+          status.diffCareProgramEnrollment.done = true;
+          this.onReferralStepCompletion(status, finalSubject);
+        },
+        (error) => {
+          status.diffCareProgramEnrollment.done = true;
+          status.diffCareProgramEnrollment.error = error;
+          this.onReferralStepCompletion(status, finalSubject);
+        }
+        );
+
+      // Step 3: Fill in encounter containing rtc date
+      this.createDifferentiatedCareEncounter(patientUuid, providerUuid, encounterDateTime,
+        rtcDate, locationUuid)
+        .subscribe(
+        (response) => {
+          status.encounterCreation.created = response;
+          status.encounterCreation.done = true;
+          this.onReferralStepCompletion(status, finalSubject);
+        },
+        (error) => {
+          status.encounterCreation.done = true;
+          status.encounterCreation.error = error;
+          this.onReferralStepCompletion(status, finalSubject);
+        }
+        );
     }
-
-    let activePrograms = this.filterOutHivActivePrograms(patient.enrolledPrograms);
-
-    // Step 1: Unenroll from other programs
-    this.endProgramEnrollments(activePrograms, encounterDateTime)
-      .subscribe(
-      (response) => {
-        status.otherHivProgUnenrollment.unenrolledFrom = activePrograms;
-        status.otherHivProgUnenrollment.done = true;
-        this.onReferralStepCompletion(status, finalSubject);
-      },
-      (error) => {
-        status.otherHivProgUnenrollment.done = true;
-        status.otherHivProgUnenrollment.error = error;
-        this.onReferralStepCompletion(status, finalSubject);
-      }
-      );
-
-    // Step 2: Enroll in Diff Care program
-    this.enrollPatientToDifferentiatedCare(patientUuid, encounterDateTime, locationUuid)
-      .subscribe(
-      (response) => {
-        status.diffCareProgramEnrollment.enrolled = response;
-        status.diffCareProgramEnrollment.done = true;
-        this.onReferralStepCompletion(status, finalSubject);
-      },
-      (error) => {
-        status.diffCareProgramEnrollment.done = true;
-        status.diffCareProgramEnrollment.error = error;
-        this.onReferralStepCompletion(status, finalSubject);
-      }
-      );
-
-    // Step 3: Fill in encounter containing rtc date
-    this.createDifferentiatedCareEncounter(patientUuid, providerUuid, encounterDateTime,
-      rtcDate, locationUuid)
-      .subscribe(
-      (response) => {
-        status.encounterCreation.created = response;
-        status.encounterCreation.done = true;
-        this.onReferralStepCompletion(status, finalSubject);
-      },
-      (error) => {
-        status.encounterCreation.done = true;
-        status.encounterCreation.error = error;
-        this.onReferralStepCompletion(status, finalSubject);
-      }
-      );
     return finalSubject;
   }
 
