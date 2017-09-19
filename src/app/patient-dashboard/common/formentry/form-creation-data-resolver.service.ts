@@ -4,46 +4,62 @@ import {
   ActivatedRouteSnapshot, ActivatedRoute
 } from '@angular/router';
 
-import { DraftedFormsService } from './drafted-forms.service';
+import * as _ from 'lodash';
 
+import { DraftedFormsService } from './drafted-forms.service';
 import { PatientPreviousEncounterService } from '../../services/patient-previous-encounter.service';
 import { FormSchemaService } from './form-schema.service';
-import * as _ from 'lodash';
+import { VisitResourceService } from '../../../openmrs-api/visit-resource.service';
+
 @Injectable()
 export class FormCreationDataResolverService implements Resolve<any> {
   public validationConflictQuestions = ['reasonNotOnFamilyPlanning'];
-  constructor(private patientPreviousEncounterService: PatientPreviousEncounterService,
-              private router: ActivatedRoute,
-              private formSchemaService: FormSchemaService,
-              private draftedForm: DraftedFormsService) {
+  constructor(
+    private patientPreviousEncounterService: PatientPreviousEncounterService,
+    private router: ActivatedRoute,
+    private formSchemaService: FormSchemaService,
+    private visitResourceService: VisitResourceService,
+    private draftedForm: DraftedFormsService) {
   }
 
   public resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<any> | any {
 
     let selectedFormUuid = route.params['formUuid'];
     let selectedEncounter = route.queryParams['encounter'];
+    let selectedVisitUuid = route.queryParams['visitUuid'];
     return new Promise((resolve, reject) => {
-
       this.formSchemaService.getFormSchemaByUuid(selectedFormUuid).subscribe(
         (compiledFormSchema) => {
           if (compiledFormSchema) {
             this.upgradeConflictingValidations(compiledFormSchema);
             console.log('compiledFormSchema', compiledFormSchema);
-            if (selectedEncounter) {
-              console.log('no encounter for this form');
-              resolve({ encounter: {}, schema: compiledFormSchema });
-            } else {
-              if ((this.draftedForm.lastDraftedForm === null ||
-                this.draftedForm.lastDraftedForm === undefined) &&
-                compiledFormSchema.encounterType && compiledFormSchema.encounterType.uuid) {
-                this.patientPreviousEncounterService.
-                  getPreviousEncounter(compiledFormSchema.encounterType.uuid).then((encounter) => {
-                    resolve({ encounter: encounter, schema: compiledFormSchema });
-                  });
-              } else {
-                resolve({ encounter: {}, schema: compiledFormSchema });
-              }
-            }
+
+            let dataRequiredToLoadForm = {
+              encounter: undefined,
+              schema: compiledFormSchema,
+              visit: undefined
+            };
+
+            this.getPreviousEncounter(selectedEncounter, compiledFormSchema)
+              .then((encounter) => {
+                dataRequiredToLoadForm.encounter = encounter;
+                this.processDataResolvingStep(dataRequiredToLoadForm, resolve);
+              })
+              .catch((error) => {
+                dataRequiredToLoadForm.encounter = {};
+                this.processDataResolvingStep(dataRequiredToLoadForm, resolve);
+              });
+
+            this.getVisitWithEncounters(selectedVisitUuid)
+              .then((visit) => {
+                dataRequiredToLoadForm.visit = visit;
+                this.processDataResolvingStep(dataRequiredToLoadForm, resolve);
+              })
+              .catch((error) => {
+                dataRequiredToLoadForm.visit = error;
+                this.processDataResolvingStep(dataRequiredToLoadForm, resolve);
+              });
+
           }
         },
         (err) => {
@@ -53,6 +69,52 @@ export class FormCreationDataResolverService implements Resolve<any> {
 
     });
 
+  }
+
+  private processDataResolvingStep(dataRequiredToLoadForm: any, finalAcceptFunc) {
+    if (dataRequiredToLoadForm.encounter && dataRequiredToLoadForm.visit) {
+      finalAcceptFunc(dataRequiredToLoadForm);
+    }
+  }
+
+  private getPreviousEncounter(selectedEncounter: string, compiledFormSchema: any, ): Promise<any> {
+    return new Promise((resolve, reject) => {
+      if (selectedEncounter) {
+        console.log('no encounter for this form');
+        resolve({});
+      } else {
+        if ((this.draftedForm.lastDraftedForm === null ||
+          this.draftedForm.lastDraftedForm === undefined) &&
+          compiledFormSchema.encounterType && compiledFormSchema.encounterType.uuid) {
+          this.patientPreviousEncounterService.
+            getPreviousEncounter(compiledFormSchema.encounterType.uuid).then((encounter) => {
+              resolve(encounter);
+            });
+        } else {
+          resolve({});
+        }
+      }
+    });
+  }
+
+  private getVisitWithEncounters(visitUuid): Promise<any> {
+    return new Promise((resolve, reject) => {
+      if (visitUuid) {
+        let v = 'custom:(encounters:(obs,uuid,patient:(uuid,uuid),' +
+          'encounterDatetime,form:(uuid,name),encounterType:(uuid,name),' +
+          'encounterProviders:(uuid,uuid,provider:(uuid,name),' +
+          'encounterRole:(uuid,name)),location:(uuid,name),' +
+          'visit:(uuid,visitType:(uuid,name))),uuid,display)';
+        this.visitResourceService.getVisitByUuid(visitUuid, { v: v })
+          .subscribe((visit) => {
+            resolve(visit);
+          }, (error) => {
+            reject(error);
+          });
+      } else {
+        resolve({});
+      }
+    });
   }
 
   private upgradeConflictingValidations(schema) {
