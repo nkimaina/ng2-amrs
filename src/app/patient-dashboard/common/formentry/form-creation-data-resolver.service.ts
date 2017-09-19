@@ -143,7 +143,7 @@ export class FormCreationDataResolverService implements Resolve<any> {
           if (encounterType && encounterType.uuid !== 'a44ad5e2-b3ec-42e7-8cfa-8ba3dbcf5ed7'
             && (question.label === 'Prevention with positives: At risk population:' ||
               question.label === 'Prevention with positives: PWP services:')) {
-            question.required = false;
+            // question.required = false;
           }
           if (question.required && this.validationConflictQuestions.indexOf(question.id) > -1) {
             question.required = false;
