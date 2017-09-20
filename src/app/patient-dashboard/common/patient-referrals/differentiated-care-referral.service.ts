@@ -207,6 +207,7 @@ export class DifferentiatedCareReferralService {
     let hasActiveDiffCareEnrollment = false;
     patientEnrollments.forEach((enrollment) => {
       if (enrollment.baseRoute === 'hiv' && !moment(enrollment.dateCompleted).isValid() &&
+        moment(enrollment.dateEnrolled).isValid() &&
         enrollment.programUuid === this.differentiatedCareProgramUuid) {
         hasActiveDiffCareEnrollment = true;
       }
