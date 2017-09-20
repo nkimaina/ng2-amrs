@@ -11,6 +11,18 @@ import { ProgramEnrollmentResourceService } from
 @Injectable()
 export class DifferentiatedCareReferralService {
 
+  public get differentiatedCareProgramUuid(): string {
+    return '334c9e98-173f-4454-a8ce-f80b20b7fdf0';
+  }
+
+  public get differentiatedCareEncounterTypeUuid(): string {
+    return 'f022c2ec-db69-4403-b515-127be11cde53';
+  }
+
+  public get rtcDateObsConceptUuid(): string {
+    return 'a8a666ba-1350-11df-a1f1-0026b9348838';
+  }
+
   constructor(
     public encounterService: EncounterResourceService,
     public enrolllmentService: ProgramEnrollmentResourceService
@@ -155,9 +167,9 @@ export class DifferentiatedCareReferralService {
         provider: providerUuid,
         encounterDatetime: this.toOpenmrsDateFormat(encounterDateTime),
         // Format to required openmrs date
-        encounterType: 'e3202a01-8cd5-4224-b0dd-760557f85310',
+        encounterType: this.differentiatedCareEncounterTypeUuid,
         obs: [{
-          concept: 'a8a666ba-1350-11df-a1f1-0026b9348838',
+          concept: this.rtcDateObsConceptUuid,
           value: this.toOpenmrsDateFormat(rtcDate)
         }]
       }
@@ -173,7 +185,7 @@ export class DifferentiatedCareReferralService {
         patient: patientUuid,
         dateEnrolled: this.toOpenmrsDateFormat(enrollmentDate.toString()),
         // Format to required openmrs date
-        program: '334c9e98-173f-4454-a8ce-f80b20b7fdf0'
+        program: this.differentiatedCareProgramUuid
       }
     );
   }
@@ -195,7 +207,7 @@ export class DifferentiatedCareReferralService {
     let hasActiveDiffCareEnrollment = false;
     patientEnrollments.forEach((enrollment) => {
       if (enrollment.baseRoute === 'hiv' && !moment(enrollment.dateCompleted).isValid() &&
-        enrollment.programUuid === '334c9e98-173f-4454-a8ce-f80b20b7fdf0') {
+        enrollment.programUuid === this.differentiatedCareProgramUuid) {
         hasActiveDiffCareEnrollment = true;
       }
     });
