@@ -108,19 +108,24 @@ export class DifferentiatedCareReferralService {
       let activePrograms = this.filterOutHivActivePrograms(patient.enrolledPrograms);
 
       // Step 1: Unenroll from other programs
-      this.endProgramEnrollments(activePrograms, encounterDateTime)
-        .subscribe(
-        (response) => {
-          status.otherHivProgUnenrollment.unenrolledFrom = activePrograms;
-          status.otherHivProgUnenrollment.done = true;
-          this.onReferralStepCompletion(status, finalSubject);
-        },
-        (error) => {
-          status.otherHivProgUnenrollment.done = true;
-          status.otherHivProgUnenrollment.error = error;
-          this.onReferralStepCompletion(status, finalSubject);
-        }
-        );
+      if (activePrograms.length === 0) {
+        console.log('No programs enrolled in');
+        status.otherHivProgUnenrollment.done = true;
+      } else {
+        this.endProgramEnrollments(activePrograms, encounterDateTime)
+          .subscribe(
+          (response) => {
+            status.otherHivProgUnenrollment.unenrolledFrom = activePrograms;
+            status.otherHivProgUnenrollment.done = true;
+            this.onReferralStepCompletion(status, finalSubject);
+          },
+          (error) => {
+            status.otherHivProgUnenrollment.done = true;
+            status.otherHivProgUnenrollment.error = error;
+            this.onReferralStepCompletion(status, finalSubject);
+          }
+          );
+      }
 
       // Step 2: Enroll in Diff Care program
       this.enrollPatientToDifferentiatedCare(patientUuid, encounterDateTime, locationUuid)
@@ -196,7 +201,9 @@ export class DifferentiatedCareReferralService {
     }
     let activeHivPrograms = [];
     patientEnrollments.forEach((enrollment) => {
-      if (enrollment.baseRoute === 'hiv' && !moment(enrollment.dateCompleted).isValid()) {
+      if (enrollment.baseRoute === 'hiv' &&
+        moment(enrollment.dateEnrolled).isValid() &&
+        !moment(enrollment.dateCompleted).isValid()) {
         activeHivPrograms.push(enrollment);
       }
     });
@@ -226,10 +233,6 @@ export class DifferentiatedCareReferralService {
 
   public endProgramEnrollments(patientEnrollments: Array<any>, dateCompleted: Date):
     Observable<any> {
-    if (!patientEnrollments || patientEnrollments.length === 0) {
-      return Observable.of([]);
-    }
-
     let allprogramsObservables: Array<Observable<any>> = [];
 
     patientEnrollments.forEach((enrollment) => {
@@ -259,10 +262,10 @@ export class DifferentiatedCareReferralService {
       } else {
         status.successful = true;
         finalSubject.next(status);
-        // console.log('All steps done!!');
+        console.log('All steps done!!');
       }
     } else {
-      // console.log('All processes not done.');
+      console.log('All processes not done.', status);
     }
   }
 }
