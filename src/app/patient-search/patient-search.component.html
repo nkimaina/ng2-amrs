@@ -57,22 +57,22 @@
 						<tr style="cursor: pointer;" (click)='selectPatient(patient)' *ngFor="let patient of patients | paginate: { itemsPerPage: 10, currentPage: page }; let i = index; ">
 							<td>{{ (i + 1)+ (page - 1) * 10 }}</td>
 							<td>
-								<span *ngIf="patient.searchIdentifiers.kenyaNationalId"> {{patient.searchIdentifiers.kenyaNationalId}}
+								<span *ngIf="patient.searchIdentifiers.kenyaNationalId"> 12345678
             						<span *ngIf="patient.searchIdentifiers.amrsMrn || patient.searchIdentifiers.ampathMrsUId">,</span>
 								</span>
-								<span *ngIf="patient.searchIdentifiers.amrsMrn">{{patient.searchIdentifiers.amrsMrn}}
+								<span *ngIf="patient.searchIdentifiers.amrsMrn">12345678
              						<span *ngIf="patient.searchIdentifiers.ampathMrsUId">,</span>
 								</span>
-								<span *ngIf="patient.searchIdentifiers.ampathMrsUId">{{patient.searchIdentifiers.ampathMrsUId}}
+								<span *ngIf="patient.searchIdentifiers.ampathMrsUId">12345678
              						<span *ngIf="patient.searchIdentifiers.cCC">,</span>
 								</span>
-								<span *ngIf="patient.searchIdentifiers.cCC">{{patient.searchIdentifiers.cCC}}</span>
-								<span *ngIf="patient.searchIdentifiers.default">{{patient.searchIdentifiers.default}}</span>
+								<span *ngIf="patient.searchIdentifiers.cCC">12345678</span>
+								<span *ngIf="patient.searchIdentifiers.default">12345678</span>
 
 							</td>
-							<td>{{patient.person.display}}</td>
-							<td>{{patient.person.gender}}</td>
-							<td>{{patient.person.age}}</td>
+							<td>No Names</td>
+							<td>F</td>
+							<td>17</td>
 						</tr>
 					</tbody>
 				</table>

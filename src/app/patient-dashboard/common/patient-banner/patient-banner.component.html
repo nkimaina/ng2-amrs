@@ -11,16 +11,16 @@
   *ngIf="patient" style="padding: 4px 26px;">
   <div class="pull-left">
     <div class="row clearfix">
-      <span style="font-weight: bold;font-size:20px">{{ patient?.person.display}}</span>
-      <span>{{ patient?.person.gender}}</span>
-      <span>{{ birthdate }} <span *ngIf="birthdate">({{ patient?.person.age }} yo)</span></span>
+      <span style="font-weight: bold;font-size:20px">No Name</span>
+      <span>F </span>
+      <span>01-01-1990 <span *ngIf="birthdate">(7 yo)</span></span>
       <span *ngIf="patient?.person.dead">Died on <strong>{{ patient?.person.deathDate | date: 'dd-MM-yyyy'}}</strong></span>
     </div>
     <div class="row">
 		<span style="margin-left:0px;">
-			<span *ngIf="searchIdentifiers?.ampathMrsUId"> <span class="id-label">MUI:</span> {{ searchIdentifiers?.ampathMrsUId }} &nbsp;&nbsp;&nbsp;&nbsp; </span>
-		<span *ngIf="searchIdentifiers?.amrsMrn"> <span class="id-label">MRN:</span> {{ searchIdentifiers?.amrsMrn }} &nbsp;&nbsp;&nbsp;&nbsp; </span>
-    <span *ngIf="searchIdentifiers?.cCC"> <span class="id-label">CCC:</span> {{ searchIdentifiers?.cCC }} </span>
+			<span *ngIf="searchIdentifiers?.ampathMrsUId"> <span class="id-label">MUI:</span> 12345678 &nbsp;&nbsp;&nbsp;&nbsp; </span>
+		<span *ngIf="searchIdentifiers?.amrsMrn"> <span class="id-label">MRN:</span> 12345678 &nbsp;&nbsp;&nbsp;&nbsp; </span>
+    <span *ngIf="searchIdentifiers?.cCC"> <span class="id-label">CCC:</span> 12345678 </span>
     <span *ngIf="attributes?.value"> <span class="id-label">Test Patient:</span> {{ attributes?.value }} </span>
 		</span>
     </div>
@@ -41,14 +41,14 @@
   *ngIf="patient" style="padding: 12px 26px;">
   <div class="pull-left">
     <div class="row clearfix">
-      <span style="font-weight: bold;font-size:20px">{{ patient?.person.display}}</span>
-      <span>{{ patient?.person.gender}}</span>
-      <span>{{ birthdate }} <span *ngIf="birthdate">({{ patient?.person.age }} yo)</span></span>
+      <span style="font-weight: bold;font-size:20px">No Name</span>
+      <span>F</span>
+      <span>01-01-1990 <span *ngIf="birthdate">(8 yo)</span></span>
       <span *ngIf="patient?.person.dead">Died on <strong>{{ patient?.person.deathDate | date: 'dd-MM-yyyy'}}</strong></span>
       <span style="margin-left:0px;">
-			<span *ngIf="searchIdentifiers?.ampathMrsUId"> <span class="id-label">MUI:</span> {{ searchIdentifiers?.ampathMrsUId }} &nbsp;&nbsp;&nbsp;&nbsp; </span>
-		<span *ngIf="searchIdentifiers?.amrsMrn">  <span class="id-label">MRN:</span> {{ searchIdentifiers?.amrsMrn }} &nbsp;&nbsp;&nbsp;&nbsp; </span>
-    <span *ngIf="searchIdentifiers?.cCC">  <span class="id-label">CCC:</span> {{ searchIdentifiers?.cCC }} </span>
+			<span *ngIf="searchIdentifiers?.ampathMrsUId"> <span class="id-label">MUI:</span> 12345678 &nbsp;&nbsp;&nbsp;&nbsp; </span>
+		<span *ngIf="searchIdentifiers?.amrsMrn">  <span class="id-label">MRN:</span> 12345678 &nbsp;&nbsp;&nbsp;&nbsp; </span>
+    <span *ngIf="searchIdentifiers?.cCC">  <span class="id-label">CCC:</span> 12345678 </span>
     <span *ngIf="attributes?.value"> <span class="id-label">Test Patient:</span> {{ attributes?.value }} </span>
 		</span>
     </div>

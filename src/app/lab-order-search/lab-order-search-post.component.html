@@ -29,9 +29,9 @@
 		</div>
 		<div class="{{ patient.person.dead ? 'banner-danger' : 'banner-info' }}" *ngIf="patient">
 			<div class="row banner-left">
-				<div class="col-sm-3">NAME : {{ patient?.person.display}}</div>
-				<div class="col-sm-3">SEX : {{ patient?.person.gender }}</div>
-				<div class="col-sm-3">DOB : {{ patient?.person.birthdate | date:'dd-MM-yyyy' }} ( {{ patient?.person.age }} Yrs )</div>
+				<div class="col-sm-3">NAME : No Name</div>
+				<div class="col-sm-3">SEX : F</div>
+				<div class="col-sm-3">DOB : 01-01-1990 (0 Yrs)</div>
 				<div class="col-sm-3">HEALTH CENTER : {{patient.person?.healthCenter}}
 					<span *ngIf="patient.person?.healthCenter == ''"> Not Available</span>
 				</div>
@@ -39,22 +39,22 @@
 			<div class="row banner-right">
 				<div class="col-sm-3">
 					<span class="identifier">MUI : </span>
-					<span *ngIf="searchIdentifiers?.ampathMrsUId"> {{ searchIdentifiers?.ampathMrsUId }}</span>
+					<span *ngIf="searchIdentifiers?.ampathMrsUId"> 12345678 </span>
 					<span *ngIf="searchIdentifiers?.ampathMrsUId == null"> Not Available</span>
 				</div>
 				<div class="col-sm-3">
 					<span class="identifier">MRN : </span>
-					<span *ngIf="searchIdentifiers?.amrsMrn"> {{ searchIdentifiers?.amrsMrn }}</span>
+					<span *ngIf="searchIdentifiers?.amrsMrn"> 12345678 </span>
 					<span *ngIf="searchIdentifiers?.amrsMrn == null"> Not Available</span>
 				</div>
 				<div class="col-sm-3">
 					<span class="identifier">NID : </span>
-					<span *ngIf="searchIdentifiers?.kenyaNationalId"> {{ searchIdentifiers?.kenyaNationalId }}</span>
+					<span *ngIf="searchIdentifiers?.kenyaNationalId"> 12345678 </span>
 					<span *ngIf="searchIdentifiers?.kenyaNationalId == null"> Not Available</span>
 				</div>
 				<div class="col-sm-3">
 					<span class="identifier">CCC : </span>
-					<span *ngIf="searchIdentifiers?.cCC"> {{ searchIdentifiers?.cCC }}</span>
+					<span *ngIf="searchIdentifiers?.cCC"> 12345678 </span>
 					<span *ngIf="searchIdentifiers?.cCC == null"> Not Available</span>
 				</div>
 			</div>
@@ -119,7 +119,7 @@
             <div class="form-group">
               <label for="identifier">Patient Identifier</label>
               <select class="form-control" id="identifier" [(ngModel)]="selectedIdentifier">
-                <option *ngFor="let identifier of patientIdentifers" [ngValue]="identifier">{{identifier}}</option>
+                <option *ngFor="let identifier of patientIdentifers" [ngValue]="identifier">12345678</option>
               </select>
             </div>
           </div>

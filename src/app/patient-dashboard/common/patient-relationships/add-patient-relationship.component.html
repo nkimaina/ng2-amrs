@@ -8,7 +8,7 @@
 	<form>
 				<div class="form-group">
 			  <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-				<label class="control-label">Patient Name: </label><span *ngIf="patientToBindRelationship">{{patientToBindRelationship.person.display}}</span><br>
+				<label class="control-label">Patient Name: </label><span *ngIf="patientToBindRelationship">No Names</span><br>
 				<label class="control-label" for="relationship">Relationship Type</label>
 				<select [(ngModel)]="selectedRelationshipType" [ngModelOptions]="{standalone: true}" class="form-control">
 					<option value="null" ></option>

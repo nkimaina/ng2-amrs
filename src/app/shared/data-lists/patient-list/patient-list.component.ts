@@ -70,10 +70,11 @@ export class PatientListComponent implements OnInit {
     // console.log('Data', this.data);
 
     _.forEach(d, (row) => {
-      if (!row['person_name']) {
-        row['person_name'] = row['given_name'] + ' ' + row['family_name']
-          + ' ' + row['middle_name'];
-      }
+      row['#'] = count;
+      row['person_name'] = 'No Names';
+      row['age'] = 0;
+      row['gender'] = 'F';
+      row['identifiers'] = '12345678';
       count++;
     });
 

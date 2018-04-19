@@ -2,7 +2,7 @@
 	<form name="relationshipsForm">
 		<div class="form-group">
 			<div>
-				<label>Patient Name: </label><span *ngIf="selectedRelative">{{selectedRelative.display}}</span><br>
+				<label>Patient Name: </label><span *ngIf="selectedRelative">No Names</span><br>
 				<label for="relationship">Relationship Type:</label>
 				<select required [(ngModel)]="selectedRelationshipType" [ngModelOptions]="{standalone: true}" class="form-control">
                     <option  *ngFor="let patientRelationshipType of patientRelationshipTypes" [ngValue]="patientRelationshipType">{{patientRelationshipType.display}}</option>

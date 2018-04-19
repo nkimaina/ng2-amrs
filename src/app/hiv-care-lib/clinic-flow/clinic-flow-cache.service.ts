@@ -58,7 +58,7 @@ export class ClinicFlowCacheService {
         _.forEach(d, (row) => {
             row['#'] = count;
             if (!row['person_name']) {
-                row['person_name'] = row['names'];
+                row['person_name'] = 'No Names';
             }
             count++;
         });

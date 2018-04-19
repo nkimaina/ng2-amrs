@@ -27,7 +27,7 @@
        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
         <div class="form-group">
            <label class="control-label">Patient Identifier</label>
-           <input type="text" id="patientIdentifier" class="form-control" [(ngModel)]="patientIdentifier" name=""
+           <input type="text" id="patientIdentifier" class="form-control" name=""
                (ngModelChange)="setPatientIdentifier(patientIdentifier)" >
                 <div *ngIf="identifierValidity">
             <span style="color:red;" class="glyphicon glyphicon-exclamation-sign">{{identifierValidity}}</span>

@@ -16,28 +16,28 @@
     <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
         <div class="form-group">
           <label for="givenName">Given Name</label>
-          <input type="text" class="form-control" [(ngModel)]="givenName" name="givenName"
+          <input type="text" class="form-control" name="givenName"
                 placeholder="Given Name" required>
         </div>
     </div>
     <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
         <div class="form-group">
           <label for="middleName">Middle Name</label>
-          <input type="text" class="form-control" [(ngModel)]="middleName" name="middleName"
+          <input type="text" class="form-control" name="middleName"
                 placeholder="Middle Name">
         </div>
     </div>
     <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
         <div class="form-group">
           <label for="familyName">Family Name</label>
-          <input type="text" class="form-control" [(ngModel)]="familyName" name="familyName"
+          <input type="text" class="form-control" name="familyName"
                 placeholder="Family Name" required>
         </div>
     </div>
    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
         <div class="form-group">
           <label for="gender">Gender</label>
-          <select class="form-control" [(ngModel)]="gender" name="gender">
+          <select class="form-control" name="gender">
             <option *ngFor="let opt of genderOptions" [value]="opt.val">{{opt.label}}</option>
           </select>
         </div>
@@ -45,7 +45,7 @@
    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
     <div  class="form-group">
       <label for="birthDate">Birthdate <span>(Format: dd/mm/yyyy)</span></label><br>
-      <date-time-picker tabindex="0" [modelValue]="birthDate" [id]="'birthDate'"
+      <date-time-picker tabindex="0" [id]="'birthDate'"
                         (onDateChange)="updateBirthDate($event)"></date-time-picker>
     </div>
    </div>
@@ -53,7 +53,7 @@
    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
     <div class="form-group">
       <label for="birthdateEstimated">Birthdate Estimated?</label>
-      <select class="form-control" [(ngModel)]="birthdateEstimated" name="birthdateEstimated" (ngModelChange)="updateDOBDetails($event)">
+      <select class="form-control" name="birthdateEstimated" (ngModelChange)="updateDOBDetails($event)">
         <option *ngFor="let opt of preferredOptions" [value]="opt.val">{{opt.label}}</option>
       </select> 
     </div>

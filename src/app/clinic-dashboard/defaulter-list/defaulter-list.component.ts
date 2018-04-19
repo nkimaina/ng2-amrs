@@ -59,7 +59,7 @@ export class DefaulterListComponent implements OnInit, OnDestroy {
       },
       {
         headerName: 'Phone Number',
-        field: 'phone_number',
+        field: 'phone_numbers',
         width: 100,
         cellStyle: {
           'white-space': 'normal'
