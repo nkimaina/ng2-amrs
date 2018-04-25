@@ -1,7 +1,6 @@
 
 /* tslint:disable:no-unused-variable */
 
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { TestBed, async, fakeAsync, ComponentFixture } from '@angular/core/testing';
@@ -303,4 +302,3 @@ describe('MonthlyScheduleComponent', () => {
   });
 
 });
-

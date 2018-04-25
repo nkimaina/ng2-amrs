@@ -59,7 +59,7 @@ import { EtlApi } from '../etl-api/etl-api.module';
     CommonModule,
     OpenmrsApi,
     EtlApi,
-    Angulartics2Module.forChild(),
+    Angulartics2Module,
     FormsModule,
     NgxMyDatePickerModule,
     RouterModule,

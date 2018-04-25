@@ -1,4 +1,4 @@
-import { ToastrService, ToastrConfig } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PatientReminderService } from './patient-reminders.service';
 import { PatientService } from '../../services/patient.service';
@@ -21,14 +21,7 @@ export class PatientRemindersComponent implements OnInit, OnDestroy {
   constructor(private toastrService: ToastrService,
               private patientReminderService: PatientReminderService,
               private patientService: PatientService,
-              private toastrConfig: ToastrConfig,
               private appFeatureAnalytics: AppFeatureAnalytics) {
-
-    toastrConfig.timeOut = 0;
-    toastrConfig.closeButton = true;
-    toastrConfig.positionClass = 'toast-bottom-right';
-    toastrConfig.extendedTimeOut = 0;
-    toastrConfig.preventDuplicates = true;
 
   }
 

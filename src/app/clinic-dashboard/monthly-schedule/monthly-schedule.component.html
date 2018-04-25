@@ -33,7 +33,7 @@
       <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
     </div>
   </div>
-  <template #customCellTemplate let-day="day" let-locale="locale">
+  <ng-template #customCellTemplate let-day="day" let-locale="locale">
     <div class="cal-cell-top">
       <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
       <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
@@ -41,8 +41,8 @@
 
     <p *ngFor="let event of day.events;" [ngStyle]="{'margin': '5px'}" (click)="navigateToDaily(event)" [ngClass]="event.class">{{event.title}}</p>
 
-  </template>
+  </ng-template>
   <mwl-calendar-month-view [activeDayIsOpen]="activeDayIsOpen" [cellTemplate]="customCellTemplate" (dayClicked)="dayClicked($event.day)"
-    [viewDate]="viewDate"  [events]="events" [dayModifier]="addBadgeTotal">
+    [viewDate]="viewDate"  [events]="events" (beforeViewRender)="addBadgeTotal($event)">
   </mwl-calendar-month-view>
 </div>

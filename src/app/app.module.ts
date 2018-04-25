@@ -7,10 +7,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 import { RouterModule, Router } from '@angular/router';
 
+import { ToastrModule } from 'ngx-toastr';
+
 import { AuthGuard } from './shared/guards/auth.guard';
 import { LoginGuard } from './shared/guards/login.guard';
 import { Angulartics2Module } from 'angulartics2';
-import { Angulartics2Piwik } from 'angulartics2/dist/providers';
+import { Angulartics2Piwik } from 'angulartics2/piwik';
 import { NgamrsSharedModule } from './shared/ngamrs-shared.module';
 
 /*
@@ -71,6 +73,16 @@ export function httpClient(xhrBackend: XHRBackend, requestOptions: RequestOption
     FormVisitTypeSearchModule,
     CommonModule,
     CookieModule.forRoot(),
+    ToastrModule.forRoot(
+      {
+        timeOut: 0,
+        closeButton: true,
+        positionClass: 'toast-bottom-right',
+        extendedTimeOut: 0,
+        preventDuplicates: true,
+        enableHtml: true
+      }
+    ),
     ModalModule.forRoot(),
     NgamrsSharedModule.forRoot(),
     BusyModule.forRoot(

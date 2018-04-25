@@ -47,7 +47,7 @@ import { dataAnalyticsDashboardRouting } from './data-analytics-dashboard-routes
     ButtonModule,
     GrowlModule,
     AccordionModule,
-    Angulartics2Module.forChild(),
+    Angulartics2Module,
     NgamrsSharedModule,
     BusyModule.forRoot(
       new BusyConfig({

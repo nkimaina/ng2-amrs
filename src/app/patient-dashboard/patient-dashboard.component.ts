@@ -5,7 +5,8 @@ import { PatientService } from './services/patient.service';
 import { Patient } from '../models/patient.model';
 import { LabsResourceService } from '../etl-api/labs-resource.service';
 import * as Moment from 'moment';
-import { ToastrService, ToastrConfig } from 'ngx-toastr';
+import { ToastrService, GlobalToastrConfig } from 'ngx-toastr';
+// import { ToastrConfig } from 'ngx-toastr/toastr';
 import { AppFeatureAnalytics } from '../shared/app-analytics/app-feature-analytics.service';
 
 @Component({
@@ -34,14 +35,8 @@ export class PatientDashboardComponent implements OnInit, OnDestroy, DoCheck {
               private patientService: PatientService,
               private labsResourceService: LabsResourceService,
               private appFeatureAnalytics: AppFeatureAnalytics,
-              private toastrConfig: ToastrConfig, private toastrService: ToastrService) {
+              private toastrService: ToastrService) {
 
-    toastrConfig.timeOut = 0;
-    toastrConfig.closeButton = true;
-    toastrConfig.positionClass = 'toast-bottom-right';
-    toastrConfig.extendedTimeOut = 0;
-    toastrConfig.preventDuplicates = true;
-    toastrConfig.enableHtml = true;
   }
 
   public ngOnInit() {
@@ -91,7 +86,7 @@ export class PatientDashboardComponent implements OnInit, OnDestroy, DoCheck {
             if (result.length > 0) {
               let content: any = {
                 'cd4P': '',
-                'cd4' : ''
+                'cd4': ''
               };
               let msg: string = '';
               for (let test of result) {
@@ -109,15 +104,15 @@ export class PatientDashboardComponent implements OnInit, OnDestroy, DoCheck {
 
                   msg = `(collected on ${Moment(test.obsDatetime)
                     .format('DD/MM/YYYY')})`;
-                 }
+                }
               }
               let cd4Msg = content.cd4 + ' ' + content.cd4P + '<p>' + msg + '</p>';
               // only show if cd4 or cd4% message is shown
               if (content.cd4P.length > 0 || content.cd4.length > 0) {
-                  this.toastrService.info(cd4Msg, 'New CD4 Results from Lab');
-                  // app feature analytics
-                  this.appFeatureAnalytics
-                    .trackEvent('Patient Dashboard', 'EID Lab Data Synced', 'getNewResults');
+                this.toastrService.info(cd4Msg, 'New CD4 Results from Lab');
+                // app feature analytics
+                this.appFeatureAnalytics
+                  .trackEvent('Patient Dashboard', 'EID Lab Data Synced', 'getNewResults');
 
               }
             }
