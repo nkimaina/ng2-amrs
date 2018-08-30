@@ -44,7 +44,7 @@ class FakeLocationResourceService {
   }
 }
 
-xdescribe('Component: Location Filter Component', () => {
+describe('Component: Location Filter Component', () => {
   let component: LocationFilterComponent;
   let fixture: ComponentFixture<LocationFilterComponent>;
   let locationResourceService: LocationResourceService;
