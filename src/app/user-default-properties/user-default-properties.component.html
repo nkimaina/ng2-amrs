@@ -13,14 +13,14 @@
           <div *ngIf="isBusy" class="input-group-addon"><i class="fa fa-spinner fa-spin"></i></div>
         </div>
         <div class="float pull-left">
-          <p *ngIf="currentLocation" class="form-text text-bold">Your current location : <span
+          <p *ngIf="currentLocation!=''" class="form-text text-bold">Your current location : <span
             class="current-location">{{currentLocation.display}}</span>
           </p>
         </div>
         <div class="float pull-right">
           <span class="text-bold" *ngIf="location && !confirming">New Location: {{location.label}}</span>
         </div>
-        <div class="clear">&nbsp;</div>
+        <div class="clear clearfix">&nbsp;</div>
         <ul class="suggestions list-group">
           <li *ngFor="let item of filteredList; let i = index;" (click)="select(item)" class="list-group-item">
             {{item.display}}

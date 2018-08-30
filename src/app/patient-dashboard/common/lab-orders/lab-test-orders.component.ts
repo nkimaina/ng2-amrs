@@ -94,7 +94,7 @@ export class LabTestOrdersComponent implements OnInit, OnDestroy {
           }
           this.getLabOrdersByPatientUuid();
           this.getPatientLabOrders();
-
+          
         }
       }
     );
