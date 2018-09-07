@@ -33,8 +33,6 @@ describe('PatientStatusVisualizationResourceService', () => {
         'reporting_month': '01/2016',
         'total_patients': 107,
         'active_patients': 94,
-        'new_patients': 5,
-        'transfer_in': 2,
         'ltfu_to_active': 0,
         'transfer_out': -1,
         'death': -2,
@@ -50,8 +48,6 @@ describe('PatientStatusVisualizationResourceService', () => {
         'reporting_month': '02/2016',
         'total_patients': 110,
         'active_patients': 89,
-        'new_patients': 2,
-        'transfer_in': 1,
         'ltfu_to_active': 3,
         'transfer_out': -1,
         'death': -1,
@@ -67,8 +63,6 @@ describe('PatientStatusVisualizationResourceService', () => {
         'reporting_month': '03/2016',
         'total_patients': 113,
         'active_patients': 89,
-        'new_patients': 0,
-        'transfer_in': 3,
         'ltfu_to_active': 9,
         'transfer_out': -3,
         'death': -3,
@@ -84,8 +78,6 @@ describe('PatientStatusVisualizationResourceService', () => {
         'reporting_month': '04/2016',
         'total_patients': 119,
         'active_patients': 83,
-        'new_patients': 2,
-        'transfer_in': 4,
         'ltfu_to_active': 8,
         'transfer_out': -10,
         'death': -2,
@@ -101,8 +93,6 @@ describe('PatientStatusVisualizationResourceService', () => {
         'reporting_month': '05/2016',
         'total_patients': 130,
         'active_patients': 86,
-        'new_patients': 2,
-        'transfer_in': 9,
         'ltfu_to_active': 5,
         'transfer_out': -7,
         'death': -1,
@@ -118,8 +108,6 @@ describe('PatientStatusVisualizationResourceService', () => {
         'reporting_month': '06/2016',
         'total_patients': 139,
         'active_patients': 89,
-        'new_patients': 1,
-        'transfer_in': 8,
         'ltfu_to_active': 4,
         'transfer_out': -6,
         'death': 0,
@@ -135,8 +123,6 @@ describe('PatientStatusVisualizationResourceService', () => {
         'reporting_month': '07/2016',
         'total_patients': 159,
         'active_patients': 144,
-        'new_patients': 10,
-        'transfer_in': 10,
         'ltfu_to_active': 8,
         'transfer_out': -2,
         'death': 0,
@@ -152,8 +138,6 @@ describe('PatientStatusVisualizationResourceService', () => {
         'total_patients': 175,
         'reporting_month': '08/2016',
         'active_patients': 127,
-        'new_patients': 8,
-        'transfer_in': 8,
         'ltfu_to_active': 2,
         'transfer_out': -5,
         'death': 0,
@@ -169,8 +153,6 @@ describe('PatientStatusVisualizationResourceService', () => {
         'reporting_month': '09/2016',
         'total_patients': 185,
         'active_patients': 132,
-        'new_patients': 8,
-        'transfer_in': 2,
         'ltfu_to_active': 6,
         'transfer_out': -6,
         'death': -2,
@@ -186,8 +168,6 @@ describe('PatientStatusVisualizationResourceService', () => {
         'reporting_month': '10/2016',
         'total_patients': 196,
         'active_patients': 128,
-        'new_patients': 7,
-        'transfer_in': 4,
         'ltfu_to_active': 0,
         'transfer_out': -7,
         'death': -2,
@@ -203,8 +183,6 @@ describe('PatientStatusVisualizationResourceService', () => {
         'reporting_month': '11/2016',
         'total_patients': 206,
         'active_patients': 125,
-        'new_patients': 7,
-        'transfer_in': 3,
         'ltfu_to_active': 2,
         'transfer_out': -3,
         'death': -3,
@@ -220,8 +198,6 @@ describe('PatientStatusVisualizationResourceService', () => {
         'reporting_month': '12/2016',
         'total_patients': 210,
         'active_patients': 117,
-        'new_patients': 3,
-        'transfer_in': 1,
         'ltfu_to_active': 7,
         'transfer_out': -10,
         'death': -2,
@@ -282,8 +258,10 @@ describe('PatientStatusVisualizationResourceService', () => {
   // it('...', async(inject([...], (...) => {}));
 
   it('should return patient monthly status aggregate values when getAggregates() is called',
-    inject([PatientStatusVisualizationResourceService, MockBackend],
-      (s: PatientStatusVisualizationResourceService, backend: MockBackend) => {
+      (done) => {
+        const s: PatientStatusVisualizationResourceService = TestBed.get(PatientStatusVisualizationResourceService);
+        const backend: MockBackend = TestBed.get(MockBackend);
+
         backend.connections.subscribe((connection: MockConnection) => {
           expect(connection.request.method).toBe(RequestMethod.Get);
           expect(connection.request.url).toEqual('https://etl.ampath.or.ke/etl/patient-' +
@@ -303,14 +281,16 @@ describe('PatientStatusVisualizationResourceService', () => {
         }).subscribe((response) => {
           expect(response.result).toBeTruthy();
           expect(response.result[0].total_patients).toBe(107);
+          done();
         });
-      })
-  );
+  });
 
   it('should return patient list for monthly ' +
     'status change values when getPatientList() is called',
-    inject([PatientStatusVisualizationResourceService, MockBackend],
-      (s: PatientStatusVisualizationResourceService, backend: MockBackend) => {
+      (done) => {
+        const s: PatientStatusVisualizationResourceService = TestBed.get(PatientStatusVisualizationResourceService);
+        const backend: MockBackend = TestBed.get(MockBackend);
+
         backend.connections.subscribe((connection: MockConnection) => {
           expect(connection.request.method).toBe(RequestMethod.Get);
           expect(connection.request.url).toEqual('https://etl.ampath.or.ke/etl'
@@ -330,7 +310,7 @@ describe('PatientStatusVisualizationResourceService', () => {
           analysis: 'cumulativeAnalysis'
         }).subscribe((response) => {
           expect(response.result).toBeTruthy();
+          done();
         });
-      })
-  );
+      });
 });

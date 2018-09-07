@@ -9,20 +9,9 @@ const highCharts = require('highcharts');
 export class PatientStatuChangeVisualizationService {
   public indicatorsKeys: Array<any> = [
     {value: 'active_return', label: 'Active Return Analysis', indicator: 'active_return'},
-    {value: 'new_enrollment', label: 'New Enrollment Analysis', indicator: 'new_enrollments'},
-    {value: 'transfer_in', label: 'Transfer In Analysis', indicator: 'transfer_in'},
     {value: 'LTFU', label: 'LTFU Analysis', indicator: 'LTFU'},
     {value: 'transfer_out', label: 'Transfer Out Analysis', indicator: 'transfer_out_patients'},
-    {value: 'dead', label: 'Deaths Analysis', indicator: 'deaths'},
-    {value: 'HIV_negative', label: 'HIV Negative Analysis', indicator: 'HIV_negative_patients'},
-    {
-      value: 'self_disengaged', label: 'Self Disengagements Analysis',
-      indicator: 'self_disengaged_patients'
-    },
-    {
-      value: 'self_transfer_out', label: 'Self Transfer Out Analysis',
-      indicator: 'self_transfer_out'
-    }
+    {value: 'dead', label: 'Deaths Analysis', indicator: 'deaths'}
   ];
   public renderOptions: any = {
     cumulativeAnalysis: {
@@ -34,9 +23,8 @@ export class PatientStatuChangeVisualizationService {
           {name: 'active_in_care', yAxis: 0, stack: 'total_patients'},
           {name: 'LTFU', yAxis: 0, stack: 'total_patients'},
           {name: 'deaths', yAxis: 0, stack: 'total_patients'},
-          {name: 'transfer_out_patients', yAxis: 0, stack: 'total_patients'},
-          {name: 'HIV_negative_patients', yAxis: 0, stack: 'total_patients'},
-          {name: 'self_disengaged_patients', yAxis: 0, stack: 'total_patients'}]
+          {name: 'transfer_out_patients', yAxis: 0, stack: 'total_patients'}
+        ]
       },
       tableOptions: {
         columnOptions: {
@@ -76,25 +64,11 @@ export class PatientStatuChangeVisualizationService {
             width: 160,
             patient_list: true
           },
-          'HIV_negative_patients': {
-            columnTitle: 'HIV -Ve Cumulative',
-            pinned: false,
-            color: 'deepskyblue',
-            width: 160,
-            patient_list: true
-          },
           'transfer_out_patients': {
             columnTitle: 'Transfer Out Cumulative',
             pinned: false,
             color: 'deepskyblue',
             width: 200,
-            patient_list: true
-          },
-          'self_disengaged_patients': {
-            columnTitle: 'Self Disengaged Cumulative',
-            pinned: false,
-            color: 'deepskyblue',
-            width: 250,
             patient_list: true
           }
 
@@ -378,11 +352,11 @@ export class PatientStatuChangeVisualizationService {
       if (columnLabelMap.hasOwnProperty(row)) {
         let rowData = columnLabelMap[row];
         if (_.isEmpty(rowData.tooltip) || _.isUndefined(rowData.tooltip)) {
-          rowData.tooltip = this.getIndicatorDefinition(indicatorDef, row);
+          // rowData.tooltip = this.getIndicatorDefinition(indicatorDef, row);
         }
         let column = {
           headerName: rowData.columnTitle,
-          tooltip: rowData.tooltip || '',
+          // tooltip: rowData.tooltip || '',
           color: rowData.color || 'deepskyblue',
           analysisType: renderType,
           pinned: rowData.pinned,

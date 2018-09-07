@@ -43,10 +43,10 @@ export class PatientStatusChangeVisualizationContainerComponent implements OnIni
   private cohortAnalysisComponent: PatientStatusChangeVisualizationComponent;
 
   constructor(private clinicDashboardCacheService: ClinicDashboardCacheService,
-              private patientStatusResourceService: PatientStatusVisualizationResourceService,
-              private location: Location,
-              private route: ActivatedRoute,
-              private router: Router) {
+    private patientStatusResourceService: PatientStatusVisualizationResourceService,
+    private location: Location,
+    private route: ActivatedRoute,
+    private router: Router) {
   }
 
   public ngOnInit() {
@@ -175,6 +175,7 @@ export class PatientStatusChangeVisualizationContainerComponent implements OnIni
         }
       }).subscribe((result) => {
         this.triggerBusyIndicators(analysisType, false, false);
+        result = this.transformCohortAnalysisDataToRowPerIndicator(result);
         this.cohortAnalysisResults = result;
       }, (error) => {
         this.triggerBusyIndicators(analysisType, false, true);
@@ -196,5 +197,42 @@ export class PatientStatusChangeVisualizationContainerComponent implements OnIni
         console.error('unknown view', view);
 
     }
+  }
+
+  private transformCohortAnalysisDataToRowPerIndicator(data) {
+    console.log('COHORTANALYSISDATA', data);
+    const tranformed = [];
+    data.result.forEach(element => {
+      for (let o in element) {
+        if (this.isCohortAnalysisStateChangeIndicator(o)) {
+          tranformed.push({
+            counts: element[o],
+            from_month: element.starting_month,
+            to_month: element.ending_month,
+            indicator: o,
+            reporting_month: element.ending_month
+          });
+        }
+      }
+    });
+    data.result = tranformed;
+    return data;
+  }
+
+  private isCohortAnalysisStateChangeIndicator(indicator) {
+    if (typeof indicator !== 'string') {
+      return false;
+    }
+    if ((indicator.includes('starting') && indicator !== 'starting_month') ||
+      indicator.includes('ending') && indicator !== 'ending_month') {
+      return true;
+    }
+    if (indicator.includes('LTFU') ||
+      indicator.includes('transfer_out') ||
+      indicator.includes('active') ||
+      indicator.includes('dead')) {
+      return true;
+    }
+    return false;
   }
 }

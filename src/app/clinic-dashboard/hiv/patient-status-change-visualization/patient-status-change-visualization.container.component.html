@@ -9,13 +9,13 @@
         </div>
       </div>
       <p-tabView   (onChange)="handleTabChange($event)">
-        <p-tabPanel header="Cumulative Analysis"  leftIcon="fa fa-bar-chart" [selected]="currentView === 'cumulativeAnalysis'">
+        <p-tabPanel header="Cumulative Ever Analysis"  leftIcon="fa fa-bar-chart" [selected]="currentView === 'cumulativeAnalysis'">
           <patient-status-change-visualization #cumulativeAnalysis [data]="cumulativeAnalysisResults.result" [renderType]="'cumulativeAnalysis'"
                                                [showAnalysisTypeSelector]="false" [indicatorDefinitions]="cumulativeAnalysisResults.indicatorDefinitions"
                                                (filterModelChange)="loadCumulativeAnalysis($event)"
           ></patient-status-change-visualization>
         </p-tabPanel>
-        <p-tabPanel header="Monthly Analysis" leftIcon="fa fa-line-chart" [selected]="currentView === 'monthlyAnalysis'">
+        <p-tabPanel header="Monthly Change Analysis" leftIcon="fa fa-line-chart" [selected]="currentView === 'monthlyAnalysis'">
 
           <patient-status-change-visualization  #monthlyAnalysis  [data]="monthlyAnalysisResults.result" [renderType]="'monthlyAnalysis'"
                                                 (filterModelChange)="loadMonthlyAnalysis($event)"
