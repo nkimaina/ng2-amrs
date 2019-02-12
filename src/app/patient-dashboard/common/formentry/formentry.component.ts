@@ -305,11 +305,17 @@ export class FormentryComponent implements OnInit, OnDestroy {
       if (encounterProvider.length > 0 &&
         this.compiledSchemaWithEncounter &&
         this.compiledSchemaWithEncounter.provider !== {}) {
-        let provider = this.compiledSchemaWithEncounter.provider.uuid;
-        if (retroSettings && retroSettings.enabled) {
+        let provider: string = null;
+        if (this.compiledSchemaWithEncounter && this.compiledSchemaWithEncounter.provider) {
+          provider = this.compiledSchemaWithEncounter.provider.uuid;
+        }
+        if (retroSettings && retroSettings.enabled && retroSettings.provider) {
           provider = retroSettings.provider.value;
         }
-        encounterProvider[0].control.setValue(provider);
+
+        if ( _.isEmpty(provider)) {
+          encounterProvider[0].control.setValue(provider);
+        }
       }
     });
   }
@@ -1021,7 +1027,7 @@ export class FormentryComponent implements OnInit, OnDestroy {
         (data) => {
           this.retrospectiveDataEntryService.retroSettings.subscribe((retroSettings) => {
             let provider = data.providerUuid;
-            if (retroSettings && retroSettings.enabled) {
+            if (retroSettings && retroSettings.enabled && retroSettings.provider && retroSettings.provider.value) {
               provider = retroSettings.provider.value;
             }
             this.form.valueProcessingInfo.providerUuid = provider;
@@ -1045,7 +1051,11 @@ export class FormentryComponent implements OnInit, OnDestroy {
     if (encounterProvider.length > 0) {
       personUuid = encounterProvider[0].control.value;
     }
-    return this.formDataSourceService.getProviderByUuid(personUuid);
+    if (personUuid) {
+      return this.formDataSourceService.getProviderByUuid(personUuid);
+    } else {
+      return Observable.of(null);
+    }
   }
 
   private confirmRetrospectiveSubmission(payloadTypes): void {

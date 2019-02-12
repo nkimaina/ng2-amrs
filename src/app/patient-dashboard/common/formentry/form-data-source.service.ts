@@ -52,9 +52,19 @@ export class FormDataSourceService {
 
   public getProviderDataSource() {
     let resolve = (uuid: string) => {
+      if (uuid === null ||
+        uuid === undefined ||
+        uuid === 'undefined' ||
+        uuid === 'null') {
+        return Observable.of([]);
+      }
       return this.getProviderByUuid(uuid);
     };
     let find = (text: string) => {
+
+      if (_.isEmpty(text)) {
+        return Observable.of([]);
+      }
       return this.findProvider(text);
     };
 
