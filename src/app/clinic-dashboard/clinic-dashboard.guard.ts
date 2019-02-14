@@ -31,6 +31,7 @@ export class ClinicDashboardGuard implements CanActivate, CanDeactivate<ClinicDa
     if (component.name === 'ClinicDashboardComponent') {
       const userLocation = this.userDefaultProperties.getCurrentUserDefaultLocationObject();
       const locationUuid = routeSnapshot.params['location_uuid'];
+      // window.alert('current location' + locationUuid);
       if (locationUuid) {
         this.clinicDashboardCacheService.setCurrentClinic(locationUuid);
         const routes = this.clinicRoutesFactory
@@ -41,6 +42,7 @@ export class ClinicDashboardGuard implements CanActivate, CanDeactivate<ClinicDa
         this.router.navigate(['/clinic-dashboard', userLocation.uuid,
           'general', 'daily-schedule']);
       } else {
+        // throw new Error('LOCATION IDDDDDD' + locationUuid + userLocation);
         return true;
       }
       return true;

@@ -26,8 +26,7 @@ export const routes = [
           {
             path: 'oncology',
             loadChildren: './oncology/oncology-program.module#OncologyProgramModule'
-          },
-          { path: '', redirectTo: 'general', pathMatch: 'prefix' }
+          }
         ]
       }
     ]
