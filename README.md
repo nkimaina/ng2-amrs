@@ -24,4 +24,19 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
+## Single SPA HOW-TO
+
+1. Serve the application from port 4200 (or whichever you prefer)
+
+```sh
+ng serve --port 4200 --deploy-url http://localhost:4200 --disable-host-check --ssl
+```
+
+2. Open the running app that you want to overide ng2-amrs e.g https://ngx.ampath.or.ke/amrs-backup/spa, and run the following on the browser web tool console
+
+```js
+importMapOverrides.addOverride('@ampath/poc', 'https://localhost:4200/main.js');
+```
+
+3. Modify any part of ng2-amrs, and refresh the app in the browser to see if the changes are reflected
+
