@@ -82,6 +82,16 @@ export class PatientBannerComponent implements OnInit, OnDestroy, OnChanges {
         this.patientServiceSubscription.unsubscribe();
     }
   }
+
+  public onChangeIdentifier() {
+    console.log('Navigating to patient info');
+    this.router.navigate(['/patient-dashboard/patient/' + this.patient.uuid + '/general/general/patient-info'], {
+      queryParams: {
+        action: 'add-identifier',
+        scrollSection: 'relationship'
+      }
+    });
+  }
   public addToCohort() {
     this.showingAddToCohort = true;
   }

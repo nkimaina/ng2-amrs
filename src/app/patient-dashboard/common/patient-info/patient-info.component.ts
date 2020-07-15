@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy , AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppFeatureAnalytics } from '../../../shared/app-analytics/app-feature-analytics.service';
 import { PatientService } from '../../services/patient.service';
@@ -17,6 +17,7 @@ export class PatientInfoComponent implements OnInit, OnDestroy, AfterViewInit {
   public subscription: Subscription;
   public routeSub: Subscription;
   public scrollSection = '';
+
   constructor(private appFeatureAnalytics: AppFeatureAnalytics,
     private patientService: PatientService, private route: ActivatedRoute) {
   }
@@ -32,11 +33,11 @@ export class PatientInfoComponent implements OnInit, OnDestroy, AfterViewInit {
     this.appFeatureAnalytics
       .trackEvent('Patient Dashboard', 'Patient Info Loaded', 'ngOnInit');
     this.routeSub = this.route.queryParams
-    .subscribe((params: any) => {
-      if (params.scrollSection) {
+      .subscribe((params: any) => {
+        if (params.scrollSection) {
           this.scrollSection = params.scrollSection;
-      }
-    });
+        }
+      });
   }
 
   public ngOnDestroy(): void {
@@ -44,7 +45,7 @@ export class PatientInfoComponent implements OnInit, OnDestroy, AfterViewInit {
       this.subscription.unsubscribe();
     }
     if (this.routeSub) {
-          this.routeSub.unsubscribe();
+      this.routeSub.unsubscribe();
     }
   }
 
@@ -58,13 +59,15 @@ export class PatientInfoComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public scrollToSection(section: string) {
-        console.log('scroll section', section);
-        const element = document.getElementById(section);
-        console.log('scroll element', element);
-        element.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center'
-        });
+    console.log('scroll section', section);
+    const element = document.getElementById(section);
+    console.log('scroll element', element);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
   }
 
 }

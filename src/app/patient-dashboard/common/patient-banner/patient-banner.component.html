@@ -31,7 +31,7 @@
             <span class="id-label">CCC:</span>
             <span>{{searchIdentifiers?.cCC}}</span>
           </span>
-          <span *ngIf="!searchIdentifiers?.cCC" style="color: darkorange; border: 1px solid darkorange; padding-left: 4px; padding-top: 2px; padding-bottom: 2px; padding-right: 0px;">
+          <span (click)="onChangeIdentifier()"  *ngIf="!searchIdentifiers?.cCC" style="cursor: pointer; color: darkorange; border: 1px solid darkorange; padding-left: 4px; padding-top: 2px; padding-bottom: 2px; padding-right: 0px;">
             <span class="glyphicon glyphicon-info-sign"></span>
             <span style="margin-left: -5px;">CCC: Not Assigned</span>
           </span>
@@ -93,7 +93,7 @@
             <span class="id-label">CCC:</span>
             <span>{{searchIdentifiers?.cCC}}</span>
           </span>
-          <span *ngIf="!searchIdentifiers?.cCC" style="color: darkorange; border: 1px solid darkorange; padding-left: 4px; padding-top: 2px; padding-bottom: 2px; padding-right: 0px;">
+          <span (click)="onChangeIdentifier()" *ngIf="!searchIdentifiers?.cCC" style="cursor: pointer; color: darkorange; border: 1px solid darkorange; padding-left: 4px; padding-top: 2px; padding-bottom: 2px; padding-right: 0px;">
             <span class="glyphicon glyphicon-info-sign"></span>
             <span style="margin-left: -5px;">CCC: Not Assigned</span>
           </span>
