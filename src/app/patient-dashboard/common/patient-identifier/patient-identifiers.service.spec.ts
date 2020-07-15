@@ -11,6 +11,7 @@ import { LocalStorageService } from '../../../utils/local-storage.service';
 import { DataCacheService } from '../../../shared/services/data-cache.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CacheStorageService } from 'ionic-cache/dist/cache-storage';
+import { ActivatedRoute } from '@angular/router';
 
 class MockCacheStorageService {
   constructor(a, b) {}
@@ -19,7 +20,15 @@ class MockCacheStorageService {
     return true;
   }
 }
-describe('Service: PatientIdentifierService', () => {
+
+class MockActivatedRoute {
+  public params = Observable.of([{ 'scrollSection': 'relationship' }]);
+  public snapshot = {
+      queryParams: {  'scrollSection': 'relationship'  }
+  };
+}
+
+fdescribe('Service: PatientIdentifierService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [CacheModule, HttpClientTestingModule],
@@ -35,6 +44,10 @@ describe('Service: PatientIdentifierService', () => {
           provide: CacheStorageService, useFactory: () => {
             return new MockCacheStorageService(null, null);
           }
+        },
+        {
+          provide: ActivatedRoute,
+          useClass : MockActivatedRoute
         }
       ]
     });
